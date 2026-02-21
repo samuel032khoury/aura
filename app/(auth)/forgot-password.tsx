@@ -1,5 +1,4 @@
 import { useSignIn } from "@clerk/clerk-expo";
-import type { EmailCodeFactor } from "@clerk/types";
 import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -18,15 +17,15 @@ import Animated, {
 	FadeInUp,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 import { AnimatedInput } from "@/components/auth/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { GradientButton } from "@/components/auth/gradient-button";
-
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
-export default function Page() {
+export default function ForgotPasswordPage() {
 	const { signIn, setActive, isLoaded } = useSignIn();
 	const router = useRouter();
 	const insets = useSafeAreaInsets();
@@ -35,16 +34,17 @@ export default function Page() {
 	const [emailAddress, setEmailAddress] = useState("");
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
-	const [showEmailCode, setShowEmailCode] = useState(false);
+	const [successfulCreation, setSuccessfulCreation] = useState(false);
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const isValid = useMemo(
-		() => emailAddress.length > 0 && password.length > 0,
-		[emailAddress, password],
+	const isValidEmail = useMemo(() => emailAddress.length > 0, [emailAddress]);
+	const isValidReset = useMemo(
+		() => code.length > 0 && password.length > 0,
+		[code, password],
 	);
 
-	const handleSignIn = useCallback(async () => {
+	const onRequestReset = useCallback(async () => {
 		if (!isLoaded) return;
 
 		setLoading(true);
@@ -52,14 +52,35 @@ export default function Page() {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
 		try {
-			const signInAttempt = await signIn.create({
+			await signIn.create({
+				strategy: "reset_password_email_code",
 				identifier: emailAddress,
+			});
+			setSuccessfulCreation(true);
+		} catch (err: unknown) {
+			setError(getClerkErrorMessage(err));
+		} finally {
+			setLoading(false);
+		}
+	}, [isLoaded, signIn, emailAddress]);
+
+	const onResetPassword = useCallback(async () => {
+		if (!isLoaded) return;
+
+		setLoading(true);
+		setError("");
+		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
+		try {
+			const result = await signIn.attemptFirstFactor({
+				strategy: "reset_password_email_code",
+				code,
 				password,
 			});
 
-			if (signInAttempt.status === "complete") {
+			if (result.status === "complete") {
 				await setActive({
-					session: signInAttempt.createdSessionId,
+					session: result.createdSessionId,
 					navigate: async ({ session }) => {
 						if (session?.currentTask) {
 							console.log(session?.currentTask);
@@ -68,61 +89,20 @@ export default function Page() {
 						router.replace("/");
 					},
 				});
-			} else if (signInAttempt.status === "needs_second_factor") {
-				const emailCodeFactor = signInAttempt.supportedSecondFactors?.find(
-					(factor): factor is EmailCodeFactor =>
-						factor.strategy === "email_code",
-				);
-
-				if (emailCodeFactor) {
-					await signIn.prepareSecondFactor({
-						strategy: "email_code",
-						emailAddressId: emailCodeFactor.emailAddressId,
-					});
-					setShowEmailCode(true);
-				}
 			} else {
-				console.error(JSON.stringify(signInAttempt, null, 2));
+				console.error(JSON.stringify(result, null, 2));
 			}
 		} catch (err: unknown) {
 			setError(getClerkErrorMessage(err));
 		} finally {
 			setLoading(false);
 		}
-	}, [isLoaded, signIn, setActive, router, emailAddress, password]);
-
-	const handleVerify = useCallback(async () => {
-		if (!isLoaded) return;
-
-		try {
-			const signInAttempt = await signIn.attemptSecondFactor({
-				strategy: "email_code",
-				code,
-			});
-
-			if (signInAttempt.status === "complete") {
-				await setActive({
-					session: signInAttempt.createdSessionId,
-					navigate: async ({ session }) => {
-						if (session?.currentTask) {
-							console.log(session?.currentTask);
-							return;
-						}
-						router.replace("/");
-					},
-				});
-			} else {
-				console.error(JSON.stringify(signInAttempt, null, 2));
-			}
-		} catch (err: unknown) {
-			setError(getClerkErrorMessage(err));
-		}
-	}, [isLoaded, signIn, setActive, router, code]);
+	}, [isLoaded, signIn, setActive, router, code, password]);
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 			<View style={[styles.container, { backgroundColor: t.surface }]}>
-				<AuthBackground showHearts={!showEmailCode} />
+				<AuthBackground showHearts={!successfulCreation} />
 
 				<View
 					style={{
@@ -132,9 +112,9 @@ export default function Page() {
 						paddingHorizontal: 24,
 					}}
 				>
-					{showEmailCode ? (
+					{successfulCreation ? (
 						<>
-							{/* Verify header */}
+							{/* Reset Password Header */}
 							<Animated.View
 								entering={FadeInDown.delay(100).duration(700).springify()}
 								style={{ alignItems: "center", gap: 12, marginBottom: 32 }}
@@ -147,21 +127,21 @@ export default function Page() {
 										style={styles.logoGradient}
 									>
 										<SymbolView
-											name="envelope.fill"
+											name="lock.rotation"
 											size={38}
 											tintColor="#FFFFFF"
 										/>
 									</LinearGradient>
 								</View>
 								<Text style={[styles.logoText, { color: t.textPrimary }]}>
-									Verify your email
+									Reset Password
 								</Text>
 								<Text style={[styles.logoTagline, { color: t.textSecondary }]}>
-									A verification code has been sent to your email
+									Enter the code sent to your email and your new password
 								</Text>
 							</Animated.View>
 
-							{/* Code input */}
+							{/* Reset Inputs */}
 							<Animated.View
 								entering={FadeInDown.delay(300).duration(700).springify()}
 								style={styles.inputSection}
@@ -169,30 +149,63 @@ export default function Page() {
 								<AnimatedInput
 									icon="number"
 									theme={t}
-									placeholder="Enter verification code"
+									placeholder="Verification code"
 									value={code}
 									onChangeText={setCode}
 									keyboardType="numeric"
 								/>
+								<AnimatedInput
+									icon="lock.fill"
+									theme={t}
+									placeholder="New password"
+									value={password}
+									onChangeText={setPassword}
+									secureTextEntry
+									autoComplete="new-password"
+								/>
+
+								{error ? (
+									<Animated.View
+										entering={FadeInDown.duration(300)}
+										style={[
+											styles.errorContainer,
+											{ backgroundColor: t.errorBg },
+										]}
+									>
+										<SymbolView
+											name="exclamationmark.triangle.fill"
+											size={16}
+											tintColor={t.errorText}
+										/>
+										<Text
+											selectable
+											style={[styles.errorText, { color: t.errorText }]}
+										>
+											{error}
+										</Text>
+									</Animated.View>
+								) : null}
 							</Animated.View>
 
-							{/* Verify button */}
+							{/* Reset Button */}
 							<Animated.View
 								entering={FadeInUp.delay(400).duration(700).springify()}
 								style={[styles.bottomSection, { marginTop: 40 }]}
 							>
 								<GradientButton
-									onPress={handleVerify}
-									disabled={!code}
+									onPress={onResetPassword}
+									disabled={loading || !isValidReset}
+									loading={loading}
+									loadingText="Resetting..."
 									icon="checkmark"
 								>
-									Verify
+									Reset Password
 								</GradientButton>
 							</Animated.View>
 						</>
 					) : (
 						<>
-							{/* Logo */}
+							{/* Request Reset Header */}
 							<Animated.View
 								entering={FadeInDown.delay(100).duration(700).springify()}
 								style={styles.logoSection}
@@ -205,21 +218,21 @@ export default function Page() {
 										style={styles.logoGradient}
 									>
 										<SymbolView
-											name="heart.fill"
+											name="lock.fill"
 											size={42}
 											tintColor="#FFFFFF"
 										/>
 									</LinearGradient>
 								</View>
 								<Text style={[styles.logoText, { color: t.textPrimary }]}>
-									Aura
+									Forgot Password
 								</Text>
 								<Text style={[styles.logoTagline, { color: t.textSecondary }]}>
-									Find your perfect match
+									Enter your email to receive a reset code
 								</Text>
 							</Animated.View>
 
-							{/* Inputs */}
+							{/* Request Inputs */}
 							<Animated.View
 								entering={FadeInDown.delay(300).duration(700).springify()}
 								style={styles.inputSection}
@@ -234,29 +247,6 @@ export default function Page() {
 									keyboardType="email-address"
 									autoComplete="email"
 								/>
-								<AnimatedInput
-									icon="lock.fill"
-									theme={t}
-									placeholder="Password"
-									value={password}
-									onChangeText={setPassword}
-									secureTextEntry
-									autoComplete="password"
-								/>
-
-								<TouchableOpacity
-									style={styles.forgotPassword}
-									onPress={() => {
-										Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-										router.push("/(auth)/forgot-password");
-									}}
-								>
-									<Text
-										style={[styles.forgotPasswordText, { color: t.accentLink }]}
-									>
-										Forgot password?
-									</Text>
-								</TouchableOpacity>
 
 								{error ? (
 									<Animated.View
@@ -287,29 +277,29 @@ export default function Page() {
 								style={[styles.bottomSection, { marginTop: "auto" }]}
 							>
 								<GradientButton
-									onPress={handleSignIn}
-									disabled={loading || !isValid}
+									onPress={onRequestReset}
+									disabled={loading || !isValidEmail}
 									loading={loading}
-									loadingText="Signing in..."
-									icon="arrow.right"
+									loadingText="Sending code..."
+									icon="paperplane.fill"
 								>
-									Sign In
+									Send Reset Code
 								</GradientButton>
 
 								<View style={styles.signUpContainer}>
 									<Text style={[styles.signUpText, { color: t.textTertiary }]}>
-										Don&apos;t have an account?{" "}
+										Remember your password?{" "}
 									</Text>
 									<TouchableOpacity
 										onPress={() => {
 											Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-											router.push("/(auth)/sign-up");
+											router.back();
 										}}
 									>
 										<Text
 											style={[styles.signUpLink, { color: t.accentLink }]}
 										>
-											Sign Up
+											Sign In
 										</Text>
 									</TouchableOpacity>
 								</View>
