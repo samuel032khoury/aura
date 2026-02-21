@@ -1,5 +1,4 @@
 import { useSignUp } from "@clerk/clerk-expo";
-import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -13,13 +12,13 @@ import {
 } from "react-native";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { AnimatedInput } from "@/components/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { CodeVerification } from "@/components/auth/code-verification";
 import { GradientButton } from "@/components/gradient-button";
 import { useVerifyCode } from "@/hooks/use-verify-code";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
+import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
@@ -53,7 +52,7 @@ export default function Page() {
 
 		setLoading(true);
 		setError("");
-		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+		hapticButtonPress();
 
 		try {
 			await signUp.create({
@@ -190,7 +189,7 @@ export default function Page() {
 									</Text>
 									<TouchableOpacity
 										onPress={() => {
-											Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+											hapticNavigation();
 											if (router.canGoBack()) {
 												router.back();
 											} else {

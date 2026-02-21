@@ -1,5 +1,4 @@
 import { useSignIn } from "@clerk/clerk-expo";
-import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -17,11 +16,11 @@ import Animated, {
 	FadeInUp,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { AnimatedInput } from "@/components/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { GradientButton } from "@/components/gradient-button";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
+import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
@@ -49,7 +48,7 @@ export default function ForgotPasswordPage() {
 
 		setLoading(true);
 		setError("");
-		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+		hapticButtonPress();
 
 		try {
 			await signIn.create({
@@ -69,7 +68,7 @@ export default function ForgotPasswordPage() {
 
 		setLoading(true);
 		setError("");
-		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+		hapticButtonPress();
 
 		try {
 			const result = await signIn.attemptFirstFactor({
@@ -292,7 +291,7 @@ export default function ForgotPasswordPage() {
 									</Text>
 									<TouchableOpacity
 										onPress={() => {
-											Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+											hapticNavigation();
 											router.back();
 										}}
 									>

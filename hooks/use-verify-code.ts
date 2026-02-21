@@ -1,9 +1,8 @@
 import { useSignIn, useSignUp } from "@clerk/clerk-expo";
-import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
-
 import { getClerkErrorMessage } from "@/lib/clerk-error";
+import { hapticButtonPress } from "@/lib/haptics";
 
 export function useVerifyCode(type: "sign-in" | "sign-up") {
 	const {
@@ -29,7 +28,7 @@ export function useVerifyCode(type: "sign-in" | "sign-up") {
 
 		setLoading(true);
 		setError("");
-		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+		hapticButtonPress();
 
 		try {
 			const navigate = async ({

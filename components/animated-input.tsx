@@ -1,4 +1,3 @@
-import * as Haptics from "expo-haptics";
 import { SymbolView } from "expo-symbols";
 import React, { type ComponentProps, useCallback, useState } from "react";
 import {
@@ -14,6 +13,7 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from "react-native-reanimated";
+import { hapticToggleOption } from "@/lib/haptics";
 import type { AuthTheme } from "@/lib/theme";
 
 type AnimatedInputProps = {
@@ -86,7 +86,7 @@ export function AnimatedInput({
 				{secureTextEntry && (
 					<Pressable
 						onPress={() => {
-							Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+							hapticToggleOption();
 							setSecretVisible((v) => !v);
 						}}
 						style={styles.eyeButton}

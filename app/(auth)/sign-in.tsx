@@ -1,6 +1,5 @@
 import { useSignIn } from "@clerk/clerk-expo";
 import type { EmailCodeFactor } from "@clerk/types";
-import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -18,9 +17,9 @@ import { AnimatedInput } from "@/components/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { CodeVerification } from "@/components/auth/code-verification";
 import { GradientButton } from "@/components/gradient-button";
-
 import { useVerifyCode } from "@/hooks/use-verify-code";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
+import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
@@ -54,7 +53,7 @@ export default function Page() {
 
 		setLoading(true);
 		setError("");
-		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+		hapticButtonPress();
 
 		try {
 			const signInAttempt = await signIn.create({
@@ -175,7 +174,7 @@ export default function Page() {
 								<TouchableOpacity
 									style={styles.forgotPassword}
 									onPress={() => {
-										Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+										hapticNavigation();
 										router.push("/(auth)/forgot-password");
 									}}
 								>
@@ -230,7 +229,7 @@ export default function Page() {
 									</Text>
 									<TouchableOpacity
 										onPress={() => {
-											Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+											hapticNavigation();
 											router.push("/(auth)/sign-up");
 										}}
 									>
