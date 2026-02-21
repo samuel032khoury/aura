@@ -1,5 +1,4 @@
 import { useSignUp } from "@clerk/clerk-expo";
-import type { EmailCodeFactor } from "@clerk/types";
 import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, useRouter } from "expo-router";
@@ -7,7 +6,6 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import {
 	Keyboard,
-	StyleSheet,
 	Text,
 	TouchableOpacity,
 	TouchableWithoutFeedback,
@@ -69,7 +67,7 @@ export default function Page() {
 
 	const onVerifyPress = useCallback(async () => {
 		if (!isLoaded) return;
-		
+
 		setLoading(true);
 		setError("");
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -209,11 +207,7 @@ export default function Page() {
 										end={{ x: 1, y: 1 }}
 										style={styles.logoGradient}
 									>
-										<SymbolView
-											name="sparkles"
-											size={42}
-											tintColor="#FFFFFF"
-										/>
+										<SymbolView name="sparkles" size={42} tintColor="#FFFFFF" />
 									</LinearGradient>
 								</View>
 								<Text style={[styles.logoText, { color: t.textPrimary }]}>

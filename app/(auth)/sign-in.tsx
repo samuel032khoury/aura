@@ -1,14 +1,12 @@
 import { useSignIn } from "@clerk/clerk-expo";
 import type { EmailCodeFactor } from "@clerk/types";
 import * as Haptics from "expo-haptics";
-import { AuthBackground } from "@/components/auth/auth-background";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import {
 	Keyboard,
-	StyleSheet,
 	Text,
 	TouchableOpacity,
 	TouchableWithoutFeedback,
@@ -21,6 +19,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AnimatedInput } from "@/components/auth/animated-input";
+import { AuthBackground } from "@/components/auth/auth-background";
 import { GradientButton } from "@/components/auth/gradient-button";
 
 import { getClerkErrorMessage } from "@/lib/clerk-error";

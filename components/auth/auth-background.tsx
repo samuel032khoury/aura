@@ -1,6 +1,5 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet } from "react-native";
 import { FloatingHeart } from "@/components/floating-heart";
 import { useAuthTheme } from "@/lib/theme";
 

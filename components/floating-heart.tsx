@@ -1,12 +1,12 @@
 import { SymbolView } from "expo-symbols";
 import React from "react";
 import Animated, {
-    FadeIn,
-    useAnimatedStyle,
-    useSharedValue,
-    withRepeat,
-    withSequence,
-    withTiming,
+	FadeIn,
+	useAnimatedStyle,
+	useSharedValue,
+	withRepeat,
+	withSequence,
+	withTiming,
 } from "react-native-reanimated";
 
 export const FloatingHeart = ({

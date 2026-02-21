@@ -75,7 +75,9 @@ export const shadowPrimary = Platform.select({
 	},
 }) as object;
 
-export type AuthTheme = (typeof AuthPalette)["light"] | (typeof AuthPalette)["dark"];
+export type AuthTheme =
+	| (typeof AuthPalette)["light"]
+	| (typeof AuthPalette)["dark"];
 
 export function useAuthTheme(): AuthTheme {
 	const colorScheme = useColorScheme();
