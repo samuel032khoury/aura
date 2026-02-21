@@ -2,8 +2,8 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
-import AppProviders from "@/provider";
 import { useAuth } from "@clerk/clerk-expo";
+import AppProviders from "@/provider";
 
 function RootLayoutNav() {
 	const { isSignedIn } = useAuth();

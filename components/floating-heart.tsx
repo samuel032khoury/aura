@@ -42,17 +42,15 @@ export const FloatingHeart = ({
 	return (
 		<Animated.View
 			entering={FadeIn.delay(delay).duration(1000)}
-			style={[
-				{
-					position: "absolute",
-					top,
-					left,
-					opacity,
-				},
-				animatedStyle,
-			]}
+			style={{
+				position: "absolute",
+				top,
+				left,
+			}}
 		>
-			<SymbolView name="heart.fill" size={size} tintColor="#FF6B6B" />
+			<Animated.View style={[{ opacity }, animatedStyle]}>
+				<SymbolView name="heart.fill" size={size} tintColor="#FF6B6B" />
+			</Animated.View>
 		</Animated.View>
 	);
 };
