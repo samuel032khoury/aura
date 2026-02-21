@@ -4,6 +4,26 @@ import { Platform, useColorScheme } from "react-native";
 // Spark app primary color - a warm, romantic pink/coral
 export const SEED_COLOR = "#FF6B6B";
 
+// Basic light/dark color tokens (replaces constants/theme.ts)
+export const Colors = {
+	light: {
+		text: "#1A1A1A",
+		background: "#FFFFFF",
+		tint: "#FF6B6B",
+		icon: "#999999",
+		tabIconDefault: "#999999",
+		tabIconSelected: "#FF6B6B",
+	},
+	dark: {
+		text: "#F2ECF0",
+		background: "#0E0D0F",
+		tint: "#FF8A8A",
+		icon: "#7A7078",
+		tabIconDefault: "#7A7078",
+		tabIconSelected: "#FF8A8A",
+	},
+} as const;
+
 // Custom color palette for the dating app
 export const AppColors = {
 	primary: "#FF6B6B",
