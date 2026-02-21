@@ -306,9 +306,7 @@ export default function Page() {
 											router.push("/(auth)/sign-up");
 										}}
 									>
-										<Text
-											style={[styles.signUpLink, { color: t.accentLink }]}
-										>
+										<Text style={[styles.signUpLink, { color: t.accentLink }]}>
 											Sign Up
 										</Text>
 									</TouchableOpacity>

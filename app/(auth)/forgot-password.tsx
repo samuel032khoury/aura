@@ -296,9 +296,7 @@ export default function ForgotPasswordPage() {
 											router.back();
 										}}
 									>
-										<Text
-											style={[styles.signUpLink, { color: t.accentLink }]}
-										>
+										<Text style={[styles.signUpLink, { color: t.accentLink }]}>
 											Sign In
 										</Text>
 									</TouchableOpacity>

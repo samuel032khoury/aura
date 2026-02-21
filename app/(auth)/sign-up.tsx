@@ -207,7 +207,11 @@ export default function Page() {
 										end={{ x: 1, y: 1 }}
 										style={styles.logoGradient}
 									>
-										<SymbolView name="heart.fill" size={42} tintColor="#FFFFFF" />
+										<SymbolView
+											name="heart.fill"
+											size={42}
+											tintColor="#FFFFFF"
+										/>
 									</LinearGradient>
 								</View>
 								<Text style={[styles.logoText, { color: t.textPrimary }]}>
@@ -295,9 +299,7 @@ export default function Page() {
 											}
 										}}
 									>
-										<Text
-											style={[styles.signUpLink, { color: t.accentLink }]}
-										>
+										<Text style={[styles.signUpLink, { color: t.accentLink }]}>
 											Sign In
 										</Text>
 									</TouchableOpacity>
