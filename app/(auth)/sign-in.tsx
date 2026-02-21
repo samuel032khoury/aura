@@ -12,17 +12,14 @@ import {
 	TouchableWithoutFeedback,
 	View,
 } from "react-native";
-import Animated, {
-	FadeIn,
-	FadeInDown,
-	FadeInUp,
-} from "react-native-reanimated";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AnimatedInput } from "@/components/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { CodeVerification } from "@/components/auth/code-verification";
 import { GradientButton } from "@/components/gradient-button";
 
+import { useVerifyCode } from "@/hooks/use-verify-code";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
@@ -35,10 +32,17 @@ export default function Page() {
 
 	const [emailAddress, setEmailAddress] = useState("");
 	const [password, setPassword] = useState("");
-	const [code, setCode] = useState("");
 	const [showEmailCode, setShowEmailCode] = useState(false);
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+
+	const {
+		code,
+		setCode,
+		error: verifyError,
+		loading: verifyLoading,
+		handleVerify,
+	} = useVerifyCode("sign-in");
 
 	const isValid = useMemo(
 		() => emailAddress.length > 0 && password.length > 0,
@@ -92,34 +96,6 @@ export default function Page() {
 		}
 	}, [isLoaded, signIn, setActive, router, emailAddress, password]);
 
-	const handleVerify = useCallback(async () => {
-		if (!isLoaded) return;
-
-		try {
-			const signInAttempt = await signIn.attemptSecondFactor({
-				strategy: "email_code",
-				code,
-			});
-
-			if (signInAttempt.status === "complete") {
-				await setActive({
-					session: signInAttempt.createdSessionId,
-					navigate: async ({ session }) => {
-						if (session?.currentTask) {
-							console.log(session?.currentTask);
-							return;
-						}
-						router.replace("/");
-					},
-				});
-			} else {
-				console.error(JSON.stringify(signInAttempt, null, 2));
-			}
-		} catch (err: unknown) {
-			setError(getClerkErrorMessage(err));
-		}
-	}, [isLoaded, signIn, setActive, router, code]);
-
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 			<View style={[styles.container, { backgroundColor: t.surface }]}>
@@ -134,63 +110,14 @@ export default function Page() {
 					}}
 				>
 					{showEmailCode ? (
-						<>
-							{/* Verify header */}
-							<Animated.View
-								entering={FadeInDown.delay(100).duration(700).springify()}
-								style={{ alignItems: "center", gap: 12, marginBottom: 32 }}
-							>
-								<View style={styles.logoContainer}>
-									<LinearGradient
-										colors={["#FF6B6B", "#FF8E8E"]}
-										start={{ x: 0, y: 0 }}
-										end={{ x: 1, y: 1 }}
-										style={styles.logoGradient}
-									>
-										<SymbolView
-											name="envelope.fill"
-											size={38}
-											tintColor="#FFFFFF"
-										/>
-									</LinearGradient>
-								</View>
-								<Text style={[styles.logoText, { color: t.textPrimary }]}>
-									Verify your email
-								</Text>
-								<Text style={[styles.logoTagline, { color: t.textSecondary }]}>
-									A verification code has been sent to your email
-								</Text>
-							</Animated.View>
-
-							{/* Code input */}
-							<Animated.View
-								entering={FadeInDown.delay(300).duration(700).springify()}
-								style={styles.inputSection}
-							>
-								<AnimatedInput
-									icon="number"
-									theme={t}
-									placeholder="Enter verification code"
-									value={code}
-									onChangeText={setCode}
-									keyboardType="numeric"
-								/>
-							</Animated.View>
-
-							{/* Verify button */}
-							<Animated.View
-								entering={FadeInUp.delay(400).duration(700).springify()}
-								style={[styles.bottomSection, { marginTop: 40 }]}
-							>
-								<GradientButton
-									onPress={handleVerify}
-									disabled={!code}
-									icon="checkmark"
-								>
-									Verify
-								</GradientButton>
-							</Animated.View>
-						</>
+						<CodeVerification
+							theme={t}
+							code={code}
+							setCode={setCode}
+							error={verifyError}
+							loading={verifyLoading}
+							onVerify={handleVerify}
+						/>
 					) : (
 						<>
 							{/* Logo */}

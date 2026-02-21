@@ -11,11 +11,7 @@ import {
 	TouchableWithoutFeedback,
 	View,
 } from "react-native";
-import Animated, {
-	FadeIn,
-	FadeInDown,
-	FadeInUp,
-} from "react-native-reanimated";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AnimatedInput } from "@/components/animated-input";
@@ -28,7 +24,7 @@ import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
 export default function Page() {
-	const { isLoaded, signUp, setActive } = useSignUp();
+	const { isLoaded, signUp } = useSignUp();
 	const router = useRouter();
 	const insets = useSafeAreaInsets();
 	const t = useAuthTheme();
@@ -36,16 +32,23 @@ export default function Page() {
 	const [emailAddress, setEmailAddress] = useState("");
 	const [password, setPassword] = useState("");
 	const [pendingVerification, setPendingVerification] = useState(false);
-	const [code, setCode] = useState("");
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+
+	const {
+		code,
+		setCode,
+		error: verifyError,
+		loading: verifyLoading,
+		handleVerify,
+	} = useVerifyCode("sign-up");
 
 	const isValidSignIn = useMemo(
 		() => emailAddress.length > 0 && password.length > 0,
 		[emailAddress, password],
 	);
 
-	const onSignUpPress = useCallback(async () => {
+	const handleSignUp = useCallback(async () => {
 		if (!isLoaded) return;
 
 		setLoading(true);
@@ -67,40 +70,6 @@ export default function Page() {
 		}
 	}, [isLoaded, signUp, emailAddress, password]);
 
-	const onVerifyPress = useCallback(async () => {
-		if (!isLoaded) return;
-
-		setLoading(true);
-		setError("");
-		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-
-		try {
-			const signUpAttempt = await signUp.attemptEmailAddressVerification({
-				code,
-			});
-
-			if (signUpAttempt.status === "complete") {
-				await setActive({
-					session: signUpAttempt.createdSessionId,
-					navigate: async ({ session }) => {
-						if (session?.currentTask) {
-							console.log(session?.currentTask);
-							return;
-						}
-						router.replace("/");
-					},
-				});
-			} else {
-				console.error(JSON.stringify(signUpAttempt, null, 2));
-				setError("Verification failed. Please try again.");
-			}
-		} catch (err: unknown) {
-			setError(getClerkErrorMessage(err));
-		} finally {
-			setLoading(false);
-		}
-	}, [isLoaded, signUp, setActive, router, code]);
-
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 			<View style={[styles.container, { backgroundColor: t.surface }]}>
@@ -115,86 +84,14 @@ export default function Page() {
 					}}
 				>
 					{pendingVerification ? (
-						<>
-							{/* Verify header */}
-							<Animated.View
-								entering={FadeInDown.delay(100).duration(700).springify()}
-								style={{ alignItems: "center", gap: 12, marginBottom: 32 }}
-							>
-								<View style={styles.logoContainer}>
-									<LinearGradient
-										colors={["#FF6B6B", "#FF8E8E"]}
-										start={{ x: 0, y: 0 }}
-										end={{ x: 1, y: 1 }}
-										style={styles.logoGradient}
-									>
-										<SymbolView
-											name="envelope.fill"
-											size={38}
-											tintColor="#FFFFFF"
-										/>
-									</LinearGradient>
-								</View>
-								<Text style={[styles.logoText, { color: t.textPrimary }]}>
-									Verify your email
-								</Text>
-								<Text style={[styles.logoTagline, { color: t.textSecondary }]}>
-									A verification code has been sent to your email
-								</Text>
-							</Animated.View>
-
-							{/* Code input */}
-							<Animated.View
-								entering={FadeInDown.delay(300).duration(700).springify()}
-								style={styles.inputSection}
-							>
-								<AnimatedInput
-									icon="number"
-									theme={t}
-									placeholder="Enter verification code"
-									value={code}
-									onChangeText={setCode}
-									keyboardType="numeric"
-								/>
-
-								{error ? (
-									<Animated.View
-										entering={FadeInDown.duration(300)}
-										style={[
-											styles.errorContainer,
-											{ backgroundColor: t.errorBg },
-										]}
-									>
-										<SymbolView
-											name="exclamationmark.triangle.fill"
-											size={16}
-											tintColor={t.errorText}
-										/>
-										<Text
-											selectable
-											style={[styles.errorText, { color: t.errorText }]}
-										>
-											{error}
-										</Text>
-									</Animated.View>
-								) : null}
-							</Animated.View>
-
-							{/* Verify button */}
-							<Animated.View
-								entering={FadeInUp.delay(400).duration(700).springify()}
-								style={[styles.bottomSection, { marginTop: 40 }]}
-							>
-								<GradientButton
-									onPress={onVerifyPress}
-									disabled={loading || !code}
-									loading={loading}
-									icon="checkmark"
-								>
-									Verify
-								</GradientButton>
-							</Animated.View>
-						</>
+						<CodeVerification
+							theme={t}
+							code={code}
+							setCode={setCode}
+							error={verifyError}
+							loading={verifyLoading}
+							onVerify={handleVerify}
+						/>
 					) : (
 						<>
 							{/* Logo */}
@@ -278,7 +175,7 @@ export default function Page() {
 								style={[styles.bottomSection, { marginTop: "auto" }]}
 							>
 								<GradientButton
-									onPress={onSignUpPress}
+									onPress={handleSignUp}
 									disabled={loading || !isValidSignIn}
 									loading={loading}
 									loadingText="Creating account..."
