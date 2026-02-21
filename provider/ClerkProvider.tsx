@@ -1,8 +1,8 @@
-import { tokenCache } from "@/lib/auth";
 import {
 	ClerkLoaded,
 	ClerkProvider as ClerkProviderBase,
 } from "@clerk/clerk-expo";
+import { tokenCache } from "@/lib/auth";
 
 const clerkPublishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
