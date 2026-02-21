@@ -1,50 +1,53 @@
-# Welcome to your Expo app 👋
+# Aura
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> **⚠️ Work In Progress (WIP)**
+> This application is currently under active development. Features, UI, and functionality are subject to change.
 
-## Get started
+Aura is a modern React Native application built with Expo. It is a Tinder-style dating app with an AI matchmaker built in. Instead of random swiping, the app uses OpenAI embeddings to find people with similar interests and personalities.
 
-1. Install dependencies
+## Features Preview
+
+- **Vector Embeddings**: Your profile (bio + interests) gets converted into a list of 1,536 numbers. People with similar numbers = similar personalities!
+- **Real-time Subscriptions**: When someone messages you, it appears instantly - no refresh needed. Convex handles this automatically.
+- **Compatibility Scoring**: The AI compares your "number list" with others and ranks them by similarity. Higher score = better match!
+
+## Getting Started
+
+1. Install dependencies:
 
    ```bash
    npm install
+   # or
+   bun install
    ```
 
-2. Start the app
+2. Start the development server:
 
    ```bash
    npx expo start
+   # or
+   bunx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Expo](https://expo.dev)
+- [React Native](https://reactnative.dev)
+- [Clerk](https://clerk.com) for Authentication
+- [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/) for Animations
+- [OpenAI](https://openai.com)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## License
 
-## Get a fresh project
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** License. See the [LICENSE](LICENSE) file for details.
 
-When you're ready, run:
+### Third-Party Licenses
 
-```bash
-npm run reset-project
-```
+This project uses the following open-source software:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **Expo**: [MIT License](https://opensource.org/licenses/MIT)
+- **React Native**: [MIT License](https://opensource.org/licenses/MIT)
+- **Clerk**: [MIT License](https://opensource.org/licenses/MIT)
+- **React Native Reanimated**: [MIT License](https://opensource.org/licenses/MIT)
+- **OpenAI Node.js**: [MIT License](https://opensource.org/licenses/MIT)
+EOF
