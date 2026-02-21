@@ -1,7 +1,7 @@
 import { useSignUp } from "@clerk/clerk-expo";
 import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import {
@@ -207,7 +207,7 @@ export default function Page() {
 										end={{ x: 1, y: 1 }}
 										style={styles.logoGradient}
 									>
-										<SymbolView name="sparkles" size={42} tintColor="#FFFFFF" />
+										<SymbolView name="heart.fill" size={42} tintColor="#FFFFFF" />
 									</LinearGradient>
 								</View>
 								<Text style={[styles.logoText, { color: t.textPrimary }]}>
@@ -285,19 +285,22 @@ export default function Page() {
 									<Text style={[styles.signUpText, { color: t.textTertiary }]}>
 										Already have an account?{" "}
 									</Text>
-									<Link href="/(auth)/sign-in" asChild>
-										<TouchableOpacity
-											onPress={() =>
-												Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+									<TouchableOpacity
+										onPress={() => {
+											Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+											if (router.canGoBack()) {
+												router.back();
+											} else {
+												router.replace("/(auth)/sign-in");
 											}
+										}}
+									>
+										<Text
+											style={[styles.signUpLink, { color: t.accentLink }]}
 										>
-											<Text
-												style={[styles.signUpLink, { color: t.accentLink }]}
-											>
-												Sign In
-											</Text>
-										</TouchableOpacity>
-									</Link>
+											Sign In
+										</Text>
+									</TouchableOpacity>
 								</View>
 							</Animated.View>
 						</>

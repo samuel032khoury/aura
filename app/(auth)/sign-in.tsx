@@ -2,7 +2,7 @@ import { useSignIn } from "@clerk/clerk-expo";
 import type { EmailCodeFactor } from "@clerk/types";
 import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import {
@@ -294,19 +294,18 @@ export default function Page() {
 									<Text style={[styles.signUpText, { color: t.textTertiary }]}>
 										Don&apos;t have an account?{" "}
 									</Text>
-									<Link href="/(auth)/sign-up" asChild>
-										<TouchableOpacity
-											onPress={() =>
-												Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-											}
+									<TouchableOpacity
+										onPress={() => {
+											Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+											router.push("/(auth)/sign-up");
+										}}
+									>
+										<Text
+											style={[styles.signUpLink, { color: t.accentLink }]}
 										>
-											<Text
-												style={[styles.signUpLink, { color: t.accentLink }]}
-											>
-												Sign Up
-											</Text>
-										</TouchableOpacity>
-									</Link>
+											Sign Up
+										</Text>
+									</TouchableOpacity>
 								</View>
 							</Animated.View>
 						</>
