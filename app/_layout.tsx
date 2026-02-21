@@ -1,24 +1,31 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import "react-native-reanimated";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import AppProviders from "@/provider";
+import { useAuth } from "@clerk/clerk-expo";
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+function RootLayoutNav() {
+	const { isSignedIn } = useAuth();
+	return (
+		<>
+			<Stack screenOptions={{ headerShown: false }}>
+				<Stack.Protected guard={!isSignedIn}>
+					<Stack.Screen name="(auth)" />
+				</Stack.Protected>
+				<Stack.Protected guard={!!isSignedIn}>
+					<Stack.Screen name="(app)" />
+				</Stack.Protected>
+			</Stack>
+			<StatusBar style="auto" />
+		</>
+	);
+}
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+	return (
+		<AppProviders>
+			<RootLayoutNav />
+		</AppProviders>
+	);
 }
