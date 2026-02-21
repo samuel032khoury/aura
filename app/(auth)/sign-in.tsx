@@ -1,6 +1,7 @@
 import { useSignIn } from "@clerk/clerk-expo";
 import type { EmailCodeFactor } from "@clerk/types";
 import * as Haptics from "expo-haptics";
+import { AuthBackground } from "@/components/auth/auth-background";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -21,9 +22,9 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AnimatedInput } from "@/components/auth/animated-input";
 import { GradientButton } from "@/components/auth/gradient-button";
-import { FloatingHeart } from "@/components/floating-heart";
+
 import { getClerkErrorMessage } from "@/lib/clerk-error";
-import styles from "@/lib/styles/(auth)/sign-in";
+import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
 export default function Page() {
@@ -122,44 +123,7 @@ export default function Page() {
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 			<View style={[styles.container, { backgroundColor: t.surface }]}>
-				<LinearGradient
-					colors={[...t.gradient]}
-					locations={[0, 0.3, 0.6, 1]}
-					style={StyleSheet.absoluteFill}
-				/>
-
-				{!showEmailCode && (
-					<>
-						<FloatingHeart
-							size={24}
-							top={80}
-							left={40}
-							delay={0}
-							opacity={t.heartOpacity[0]}
-						/>
-						<FloatingHeart
-							size={18}
-							top={140}
-							left={320}
-							delay={200}
-							opacity={t.heartOpacity[1]}
-						/>
-						<FloatingHeart
-							size={32}
-							top={560}
-							left={20}
-							delay={400}
-							opacity={t.heartOpacity[2]}
-						/>
-						<FloatingHeart
-							size={20}
-							top={600}
-							left={340}
-							delay={600}
-							opacity={t.heartOpacity[3]}
-						/>
-					</>
-				)}
+				<AuthBackground showHearts={!showEmailCode} />
 
 				<View
 					style={{
