@@ -38,7 +38,7 @@ export function AnimatedInput({
 }: AnimatedInputProps) {
 	const inputRef = React.useRef<TextInput>(null);
 	const [focused, setFocused] = useState(false);
-	const [passwordVisible, setPasswordVisible] = useState(false);
+	const [secretVisible, setSecretVisible] = useState(false);
 	const focusAnim = useSharedValue(0);
 
 	const containerStyle = useAnimatedStyle(() => ({
@@ -78,7 +78,7 @@ export function AnimatedInput({
 					ref={inputRef}
 					onFocus={handleFocus}
 					onBlur={handleBlur}
-					secureTextEntry={secureTextEntry && !passwordVisible}
+					secureTextEntry={secureTextEntry && !secretVisible}
 					style={[styles.input, { color: theme.textPrimary }]}
 					placeholderTextColor={theme.placeholder}
 					{...textInputProps}
@@ -87,12 +87,12 @@ export function AnimatedInput({
 					<Pressable
 						onPress={() => {
 							Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-							setPasswordVisible((v) => !v);
+							setSecretVisible((v) => !v);
 						}}
 						style={styles.eyeButton}
 					>
 						<SymbolView
-							name={passwordVisible ? "eye.slash.fill" : "eye.fill"}
+							name={secretVisible ? "eye.slash.fill" : "eye.fill"}
 							size={20}
 							tintColor={theme.iconDefault}
 						/>

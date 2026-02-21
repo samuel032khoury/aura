@@ -18,9 +18,9 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { AnimatedInput } from "@/components/auth/animated-input";
+import { AnimatedInput } from "@/components/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
-import { GradientButton } from "@/components/auth/gradient-button";
+import { GradientButton } from "@/components/gradient-button";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";

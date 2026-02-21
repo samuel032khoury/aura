@@ -8,7 +8,8 @@
 		"ios": "expo start --ios",
 		"tunnel": "expo start -c --tunnel",
 		"web": "expo start --web",
-		"lint": "expo lint"
+		"lint": "biome lint --write",
+		"format": "biome format --write"
 	},
 	"dependencies": {
 		"@clerk/clerk-expo": "^2.19.25",
