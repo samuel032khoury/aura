@@ -6,7 +6,7 @@ import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import { AnimatedInput } from "@/components/animated-input";
 import { GradientButton } from "@/components/gradient-button";
 import styles from "@/lib/styles/auth";
-import type { AuthTheme } from "@/lib/theme";
+import { type AuthTheme, Gradients } from "@/lib/theme";
 
 interface CodeVerificationProps {
 	theme: AuthTheme;
@@ -30,11 +30,11 @@ export function CodeVerification({
 			{/* Verify header */}
 			<Animated.View
 				entering={FadeInDown.delay(100).duration(700).springify()}
-				style={{ alignItems: "center", gap: 12, marginBottom: 32 }}
+				style={styles.sectionHeader}
 			>
 				<View style={styles.logoContainer}>
 					<LinearGradient
-						colors={["#FF6B6B", "#FF8E8E"]}
+						colors={Gradients.logo}
 						start={{ x: 0, y: 0 }}
 						end={{ x: 1, y: 1 }}
 						style={styles.logoGradient}

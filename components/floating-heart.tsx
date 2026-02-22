@@ -8,6 +8,7 @@ import Animated, {
 	withSequence,
 	withTiming,
 } from "react-native-reanimated";
+import { AppColors } from "@/lib/theme";
 
 export const FloatingHeart = ({
 	size,
@@ -49,7 +50,11 @@ export const FloatingHeart = ({
 			}}
 		>
 			<Animated.View style={[{ opacity }, animatedStyle]}>
-				<SymbolView name="heart.fill" size={size} tintColor="#FF6B6B" />
+				<SymbolView
+					name="heart.fill"
+					size={size}
+					tintColor={AppColors.primary}
+				/>
 			</Animated.View>
 		</Animated.View>
 	);

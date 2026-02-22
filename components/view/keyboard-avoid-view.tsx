@@ -1,10 +1,5 @@
 import type { ReactNode } from "react";
-import {
-	KeyboardAvoidingView,
-	Platform,
-	StyleSheet,
-	type ViewStyle,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, type ViewStyle } from "react-native";
 
 interface KeyboardAwareViewProps {
 	children: ReactNode;
@@ -27,7 +22,7 @@ export function KeyboardAwareView({
 }: KeyboardAwareViewProps) {
 	return (
 		<KeyboardAvoidingView
-			style={[styles.container, style]}
+			style={[{ flex: 1 }, style]}
 			behavior={Platform.OS === "ios" ? "padding" : undefined}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
@@ -35,10 +30,3 @@ export function KeyboardAwareView({
 		</KeyboardAvoidingView>
 	);
 }
-
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-});

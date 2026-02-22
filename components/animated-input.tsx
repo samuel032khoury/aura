@@ -14,7 +14,7 @@ import Animated, {
 	withTiming,
 } from "react-native-reanimated";
 import { hapticToggleOption } from "@/lib/haptics";
-import type { AuthTheme } from "@/lib/theme";
+import { AppColors, type AuthTheme } from "@/lib/theme";
 
 type AnimatedInputProps = {
 	icon: ComponentProps<typeof SymbolView>["name"];
@@ -45,7 +45,7 @@ export function AnimatedInput({
 		borderColor: interpolateColor(
 			focusAnim.value,
 			[0, 1],
-			["transparent", "#FF6B6B"],
+			["transparent", AppColors.primary],
 		),
 		backgroundColor: interpolateColor(
 			focusAnim.value,
@@ -71,7 +71,7 @@ export function AnimatedInput({
 					<SymbolView
 						name={icon}
 						size={20}
-						tintColor={focused ? "#FF6B6B" : theme.iconDefault}
+						tintColor={focused ? AppColors.primary : theme.iconDefault}
 					/>
 				</View>
 				<TextInput

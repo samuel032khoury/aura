@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 
 import { useAppTheme } from "@/lib/theme";
 
@@ -36,15 +36,15 @@ export function HeaderIcon({
 
 	return (
 		<View
-			style={[
-				styles.container,
-				{
-					width: containerSize,
-					height: containerSize,
-					borderRadius: containerSize / 2,
-					backgroundColor: backgroundColor ?? colors.primaryContainer,
-				},
-			]}
+			style={{
+				width: containerSize,
+				height: containerSize,
+				borderRadius: containerSize / 2,
+				backgroundColor: backgroundColor ?? colors.primaryContainer,
+				justifyContent: "center",
+				alignItems: "center",
+				marginBottom: 16,
+			}}
 		>
 			<Ionicons
 				name={icon}
@@ -54,11 +54,3 @@ export function HeaderIcon({
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		justifyContent: "center",
-		alignItems: "center",
-		marginBottom: 16,
-	},
-});

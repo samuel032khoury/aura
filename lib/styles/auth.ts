@@ -1,9 +1,20 @@
 import { StyleSheet } from "react-native";
-import { shadowPrimary } from "@/lib/theme";
+import { shadowPrimary } from "./shadow";
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+	},
+	/** Shared safe-area content wrapper — compose with dynamic paddingTop/paddingBottom */
+	contentWrapper: {
+		flexGrow: 1,
+		paddingHorizontal: 24,
+	},
+	/** Centered header for verify/reset screens (smaller gap than logoSection) */
+	sectionHeader: {
+		alignItems: "center",
+		gap: 12,
+		marginBottom: 32,
 	},
 	logoSection: {
 		alignItems: "center",
@@ -11,6 +22,8 @@ const styles = StyleSheet.create({
 		marginBottom: 40,
 	},
 	logoContainer: {
+		borderRadius: 28,
+		borderCurve: "continuous",
 		...shadowPrimary,
 	},
 	logoGradient: {

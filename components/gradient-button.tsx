@@ -1,13 +1,14 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { SymbolView } from "expo-symbols";
 import type { ComponentProps } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, Text } from "react-native";
 import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
 	withTiming,
 } from "react-native-reanimated";
-import { shadowPrimary } from "@/lib/theme";
+import { shadowPrimary } from "@/lib/styles/shadow";
+import { Gradients } from "@/lib/theme";
 
 type GradientButtonProps = {
 	onPress: () => void;
@@ -51,18 +52,48 @@ export function GradientButton({
 			}}
 		>
 			{/* Animated.View wraps the visual so Reanimated can animate it */}
-			<Animated.View style={[styles.button, animatedStyle]}>
+			<Animated.View
+				style={[
+					{ borderRadius: 9999, overflow: "hidden", ...shadowPrimary },
+					animatedStyle,
+				]}
+			>
 				<LinearGradient
-					colors={["#FF6B6B", "#FF5252"]}
+					colors={Gradients.button}
 					start={{ x: 0, y: 0 }}
 					end={{ x: 1, y: 1 }}
-					style={styles.gradient}
+					style={{
+						height: 56,
+						borderRadius: 9999,
+						flexDirection: "row",
+						justifyContent: "center",
+						alignItems: "center",
+						gap: 8,
+					}}
 				>
 					{loading ? (
-						<Text style={styles.text}>{loadingText}</Text>
+						<Text
+							style={{
+								fontSize: 17,
+								fontWeight: "700",
+								color: "#FFFFFF",
+								letterSpacing: 0.3,
+							}}
+						>
+							{loadingText}
+						</Text>
 					) : (
 						<>
-							<Text style={styles.text}>{children}</Text>
+							<Text
+								style={{
+									fontSize: 17,
+									fontWeight: "700",
+									color: "#FFFFFF",
+									letterSpacing: 0.3,
+								}}
+							>
+								{children}
+							</Text>
 							{icon && <SymbolView name={icon} size={18} tintColor="#FFFFFF" />}
 						</>
 					)}
@@ -71,25 +102,3 @@ export function GradientButton({
 		</Pressable>
 	);
 }
-
-const styles = StyleSheet.create({
-	button: {
-		borderRadius: 9999,
-		overflow: "hidden",
-		...shadowPrimary,
-	},
-	gradient: {
-		height: 56,
-		borderRadius: 9999,
-		flexDirection: "row",
-		justifyContent: "center",
-		alignItems: "center",
-		gap: 8,
-	},
-	text: {
-		fontSize: 17,
-		fontWeight: "700",
-		color: "#FFFFFF",
-		letterSpacing: 0.3,
-	},
-});

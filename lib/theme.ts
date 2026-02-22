@@ -1,32 +1,20 @@
 import { useMaterial3Theme } from "@pchmn/expo-material3-theme";
-import { Platform, useColorScheme } from "react-native";
+import { useColorScheme } from "react-native";
 
 // Spark app primary color - a warm, romantic pink/coral
 export const SEED_COLOR = "#FF6B6B";
 
-// Basic light/dark color tokens (replaces constants/theme.ts)
-export const Colors = {
-	light: {
-		text: "#1A1A1A",
-		background: "#FFFFFF",
-		tint: "#FF6B6B",
-		icon: "#999999",
-		tabIconDefault: "#999999",
-		tabIconSelected: "#FF6B6B",
-	},
-	dark: {
-		text: "#F2ECF0",
-		background: "#0E0D0F",
-		tint: "#FF8A8A",
-		icon: "#7A7078",
-		tabIconDefault: "#7A7078",
-		tabIconSelected: "#FF8A8A",
-	},
-} as const;
+// Reusable gradient tuples — use instead of hardcoding hex arrays
+export const Gradients = {
+	/** Primary button gradient */
+	button: [SEED_COLOR, "#FF5252"] as const,
+	/** Logo / accent gradient */
+	logo: [SEED_COLOR, "#FF8E8E"] as const,
+};
 
 // Custom color palette for the dating app
 export const AppColors = {
-	primary: "#FF6B6B",
+	primary: SEED_COLOR,
 	secondary: "#4ECDC4",
 	accent: "#FFE66D",
 	like: "#4CD964",
@@ -61,7 +49,7 @@ export const AuthPalette = {
 		textTertiary: "#666666",
 		placeholder: "#AAAAAA",
 		iconDefault: "#999999",
-		accentLink: "#FF6B6B",
+		accentLink: SEED_COLOR,
 		errorBg: "rgba(220, 38, 38, 0.08)",
 		errorText: "#DC2626",
 		heartOpacity: [0.15, 0.12, 0.1, 0.08] as const,
@@ -82,18 +70,6 @@ export const AuthPalette = {
 		heartOpacity: [0.2, 0.16, 0.14, 0.12] as const,
 	},
 } as const;
-
-export const shadowPrimary = Platform.select({
-	ios: {
-		shadowColor: "#FF6B6B",
-		shadowOffset: { width: 0, height: 4 },
-		shadowOpacity: 0.3,
-		shadowRadius: 12,
-	},
-	android: {
-		elevation: 8,
-	},
-}) as object;
 
 export type AuthTheme =
 	| (typeof AuthPalette)["light"]

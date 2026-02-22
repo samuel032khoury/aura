@@ -21,7 +21,7 @@ import { useVerifyCode } from "@/hooks/use-verify-code";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
-import { useAuthTheme } from "@/lib/theme";
+import { Gradients, useAuthTheme } from "@/lib/theme";
 
 export default function Page() {
 	const { signIn, setActive, isLoaded } = useSignIn();
@@ -40,7 +40,7 @@ export default function Page() {
 		setCode,
 		error: verifyError,
 		loading: verifyLoading,
-		handleVerify,
+		handleVerify: handleSignInVerify,
 	} = useVerifyCode("sign-in");
 
 	const isValid = useMemo(
@@ -101,12 +101,10 @@ export default function Page() {
 				<AuthBackground showHearts={!showEmailCode} />
 
 				<View
-					style={{
-						flexGrow: 1,
-						paddingTop: insets.top + 60,
-						paddingBottom: insets.bottom + 24,
-						paddingHorizontal: 24,
-					}}
+					style={[
+						styles.contentWrapper,
+						{ paddingTop: insets.top + 60, paddingBottom: insets.bottom + 24 },
+					]}
 				>
 					{showEmailCode ? (
 						<CodeVerification
@@ -115,7 +113,7 @@ export default function Page() {
 							setCode={setCode}
 							error={verifyError}
 							loading={verifyLoading}
-							onVerify={handleVerify}
+							onVerify={handleSignInVerify}
 						/>
 					) : (
 						<>
@@ -126,7 +124,7 @@ export default function Page() {
 							>
 								<View style={styles.logoContainer}>
 									<LinearGradient
-										colors={["#FF6B6B", "#FF8E8E"]}
+										colors={Gradients.logo}
 										start={{ x: 0, y: 0 }}
 										end={{ x: 1, y: 1 }}
 										style={styles.logoGradient}

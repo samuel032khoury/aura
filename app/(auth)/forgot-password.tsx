@@ -22,7 +22,7 @@ import { GradientButton } from "@/components/gradient-button";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
-import { useAuthTheme } from "@/lib/theme";
+import { Gradients, useAuthTheme } from "@/lib/theme";
 
 export default function ForgotPasswordPage() {
 	const { signIn, setActive, isLoaded } = useSignIn();
@@ -104,23 +104,21 @@ export default function ForgotPasswordPage() {
 				<AuthBackground showHearts={!successfulCreation} />
 
 				<View
-					style={{
-						flexGrow: 1,
-						paddingTop: insets.top + 60,
-						paddingBottom: insets.bottom + 24,
-						paddingHorizontal: 24,
-					}}
+					style={[
+						styles.contentWrapper,
+						{ paddingTop: insets.top + 60, paddingBottom: insets.bottom + 24 },
+					]}
 				>
 					{successfulCreation ? (
 						<>
 							{/* Reset Password Header */}
 							<Animated.View
 								entering={FadeInDown.delay(100).duration(700).springify()}
-								style={{ alignItems: "center", gap: 12, marginBottom: 32 }}
+								style={styles.sectionHeader}
 							>
 								<View style={styles.logoContainer}>
 									<LinearGradient
-										colors={["#FF6B6B", "#FF8E8E"]}
+										colors={Gradients.logo}
 										start={{ x: 0, y: 0 }}
 										end={{ x: 1, y: 1 }}
 										style={styles.logoGradient}
@@ -211,7 +209,7 @@ export default function ForgotPasswordPage() {
 							>
 								<View style={styles.logoContainer}>
 									<LinearGradient
-										colors={["#FF6B6B", "#FF8E8E"]}
+										colors={Gradients.logo}
 										start={{ x: 0, y: 0 }}
 										end={{ x: 1, y: 1 }}
 										style={styles.logoGradient}

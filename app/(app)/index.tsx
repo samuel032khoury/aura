@@ -2,6 +2,7 @@ import { SignedIn, SignedOut, useSession, useUser } from "@clerk/clerk-expo";
 import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { SignOutButton } from "@/components/sign-out-button";
+import { AppColors } from "@/lib/theme";
 
 export default function Page() {
 	const { user } = useUser();
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
 		fontWeight: "700",
 	},
 	link: {
-		color: "#FF6B6B",
+		color: AppColors.primary,
 		fontSize: 16,
 		fontWeight: "600",
 	},
