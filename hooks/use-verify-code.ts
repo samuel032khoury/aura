@@ -20,8 +20,36 @@ export function useVerifyCode(type: "sign-in" | "sign-up") {
 	const [code, setCode] = useState("");
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [resending, setResending] = useState(false);
+	const [resent, setResent] = useState(false);
 
 	const isLoaded = type === "sign-in" ? isSignInLoaded : isSignUpLoaded;
+
+	const handleResend = useCallback(async () => {
+		if (!isLoaded || resending) return;
+
+		setResending(true);
+		setError("");
+		hapticButtonPress();
+
+		try {
+			if (type === "sign-up") {
+				await signUp?.prepareEmailAddressVerification({
+					strategy: "email_code",
+				});
+			} else {
+				await signIn?.prepareSecondFactor({
+					strategy: "email_code",
+				});
+			}
+			setResent(true);
+			setTimeout(() => setResent(false), 3000);
+		} catch (err: unknown) {
+			setError(getClerkErrorMessage(err));
+		} finally {
+			setResending(false);
+		}
+	}, [isLoaded, type, signIn, signUp, resending]);
 
 	const handleVerify = useCallback(async () => {
 		if (!isLoaded) return;
@@ -92,5 +120,8 @@ export function useVerifyCode(type: "sign-in" | "sign-up") {
 		setError,
 		loading,
 		handleVerify,
+		handleResend,
+		resending,
+		resent,
 	};
 }

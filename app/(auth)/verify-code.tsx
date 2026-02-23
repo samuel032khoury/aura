@@ -10,14 +10,24 @@ import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
 export default function VerifyCodePage() {
-	const { type } = useLocalSearchParams<{ type: "sign-in" | "sign-up" }>();
+	const { type, email } = useLocalSearchParams<{
+		type: "sign-in" | "sign-up";
+		email: string;
+	}>();
 	const router = useRouter();
 	const insets = useSafeAreaInsets();
 	const t = useAuthTheme();
 
-	const { code, setCode, error, loading, handleVerify } = useVerifyCode(
-		type ?? "sign-up",
-	);
+	const {
+		code,
+		setCode,
+		error,
+		loading,
+		handleVerify,
+		handleResend,
+		resending,
+		resent,
+	} = useVerifyCode(type ?? "sign-up");
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -53,6 +63,10 @@ export default function VerifyCodePage() {
 						error={error}
 						loading={loading}
 						onVerify={handleVerify}
+						email={email}
+						onResend={handleResend}
+						resending={resending}
+						resent={resent}
 					/>
 				</View>
 			</View>

@@ -50,7 +50,7 @@ export default function Page() {
 			});
 
 			await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-			router.push("/(auth)/verify-code?type=sign-up");
+			router.push(`/(auth)/verify-code?type=sign-up&email=${encodeURIComponent(emailAddress)}`);
 		} catch (err: unknown) {
 			setError(getClerkErrorMessage(err));
 		} finally {
