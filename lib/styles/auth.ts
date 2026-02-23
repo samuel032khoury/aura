@@ -80,6 +80,16 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		fontWeight: "700",
 	},
+	termsText: {
+		fontSize: 12,
+		color: "#6B6B6B",
+		paddingHorizontal: 4,
+	},
+	termsLink: {
+		fontSize: 12,
+		color: "#6B6B6B",
+		textDecorationLine: "underline",
+	},
 });
 
 export default styles;

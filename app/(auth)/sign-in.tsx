@@ -72,7 +72,9 @@ export default function Page() {
 						strategy: "email_code",
 						emailAddressId: emailCodeFactor.emailAddressId,
 					});
-					router.push(`/(auth)/verify-code?type=sign-in&email=${encodeURIComponent(emailAddress)}`);
+					router.push(
+						`/(auth)/verify-code?type=sign-in&email=${encodeURIComponent(emailAddress)}`,
+					);
 				}
 			} else {
 				console.error(JSON.stringify(signInAttempt, null, 2));

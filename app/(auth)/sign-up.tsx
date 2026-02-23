@@ -50,7 +50,9 @@ export default function Page() {
 			});
 
 			await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-			router.push(`/(auth)/verify-code?type=sign-up&email=${encodeURIComponent(emailAddress)}`);
+			router.push(
+				`/(auth)/verify-code?type=sign-up&email=${encodeURIComponent(emailAddress)}`,
+			);
 		} catch (err: unknown) {
 			setError(getClerkErrorMessage(err));
 		} finally {
@@ -116,6 +118,30 @@ export default function Page() {
 							secureTextEntry
 							autoComplete="password-new"
 						/>
+						{/* Terms of service */}
+						<Text style={[styles.termsText, { color: t.textTertiary }]}>
+							By signing up, you agree to our{" "}
+							<Text
+								style={[styles.termsLink, { color: t.accentLink }]}
+								onPress={() => {
+									hapticNavigation();
+									// TODO: Show Terms of Service in Modal
+								}}
+							>
+								Terms of Service
+							</Text>{" "}
+							and{" "}
+							<Text
+								style={[styles.termsLink, { color: t.accentLink }]}
+								onPress={() => {
+									// TODO: Show Terms of Service in Modal
+									hapticNavigation();
+								}}
+							>
+								Privacy Policy
+							</Text>
+							.
+						</Text>
 
 						{error ? (
 							<Animated.View
