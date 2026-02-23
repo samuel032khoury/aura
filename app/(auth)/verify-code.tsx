@@ -1,14 +1,17 @@
-import { useLocalSearchParams } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { CodeVerification } from "@/components/auth/code-verification";
+import { GlassIconButton } from "@/components/ui/glass";
 import { useVerifyCode } from "@/hooks/use-verify-code";
 import styles from "@/lib/styles/auth";
 import { useAuthTheme } from "@/lib/theme";
 
 export default function VerifyCodePage() {
 	const { type } = useLocalSearchParams<{ type: "sign-in" | "sign-up" }>();
+	const router = useRouter();
 	const insets = useSafeAreaInsets();
 	const t = useAuthTheme();
 
@@ -20,6 +23,22 @@ export default function VerifyCodePage() {
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 			<View style={[styles.container, { backgroundColor: t.surface }]}>
 				<AuthBackground />
+
+				<View
+					style={{
+						position: "absolute",
+						top: insets.top + 12,
+						left: 16,
+						zIndex: 10,
+					}}
+				>
+					<GlassIconButton
+						icon={
+							<Ionicons name="chevron-back" size={22} color={t.textPrimary} />
+						}
+						onPress={() => router.back()}
+					/>
+				</View>
 
 				<View
 					style={[

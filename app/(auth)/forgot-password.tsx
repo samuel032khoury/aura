@@ -1,4 +1,5 @@
 import { useSignIn } from "@clerk/clerk-expo";
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -19,6 +20,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AnimatedInput } from "@/components/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { GradientButton } from "@/components/gradient-button";
+import { GlassIconButton } from "@/components/ui/glass";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
@@ -102,6 +104,22 @@ export default function ForgotPasswordPage() {
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 			<View style={[styles.container, { backgroundColor: t.surface }]}>
 				<AuthBackground showHearts={!successfulCreation} />
+
+				<View
+					style={{
+						position: "absolute",
+						top: insets.top + 12,
+						left: 16,
+						zIndex: 10,
+					}}
+				>
+					<GlassIconButton
+						icon={
+							<Ionicons name="chevron-back" size={22} color={t.textPrimary} />
+						}
+						onPress={() => router.back()}
+					/>
+				</View>
 
 				<View
 					style={[
