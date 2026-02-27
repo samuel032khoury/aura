@@ -119,29 +119,35 @@ export default function Page() {
 							autoComplete="password-new"
 						/>
 						{/* Terms of service */}
-						<Text style={[styles.termsText, { color: t.textTertiary }]}>
-							By signing up, you agree to our{" "}
-							<Text
-								style={[styles.termsLink, { color: t.accentLink }]}
-								onPress={() => {
-									hapticNavigation();
-									// TODO: Show Terms of Service in Modal
-								}}
-							>
-								Terms of Service
-							</Text>{" "}
-							and{" "}
-							<Text
-								style={[styles.termsLink, { color: t.accentLink }]}
-								onPress={() => {
-									// TODO: Show Terms of Service in Modal
-									hapticNavigation();
-								}}
-							>
-								Privacy Policy
+						<View style={{ flexDirection: "row" }}>
+							<Text style={[styles.termsText, { color: t.textTertiary }]}>
+								By signing up, you agree to our
 							</Text>
-							.
-						</Text>
+							<TouchableOpacity
+								onPress={() => {
+									hapticNavigation();
+									router.push("/(auth)/legal-modal?type=tos");
+								}}
+							>
+								<Text style={[styles.termsLink, { color: t.accentLink }]}>
+									Terms of Service
+								</Text>
+							</TouchableOpacity>
+							<Text style={[styles.termsText, { color: t.textTertiary }]}>
+								and
+							</Text>
+							<TouchableOpacity
+								onPress={() => {
+									hapticNavigation();
+									router.push("/(auth)/legal-modal?type=privacy");
+								}}
+							>
+								<Text style={[styles.termsLink, { color: t.accentLink }]}>
+									Privacy Policy
+								</Text>
+							</TouchableOpacity>
+							<Text style={{ fontSize: 12, color: t.textTertiary }}>.</Text>
+						</View>
 
 						{error ? (
 							<Animated.View

@@ -12,6 +12,16 @@ export default function AuthLayout() {
 			<Stack.Screen name="sign-up" />
 			<Stack.Screen name="verify-code" />
 			<Stack.Screen name="forgot-password" />
+			<Stack.Screen
+				name="legal-modal"
+				options={{
+					presentation: "formSheet",
+					headerShown: true,
+					title: "",
+					headerTransparent: true,
+					sheetGrabberVisible: true,
+				}}
+			/>
 		</Stack>
 	);
 }
