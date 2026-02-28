@@ -303,7 +303,7 @@ export default function ForgotPasswordPage() {
 
 								<View style={styles.signUpContainer}>
 									<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
-										Remember your password?{" "}
+										Remember your password?
 									</Text>
 									<TouchableOpacity
 										onPress={() => {
