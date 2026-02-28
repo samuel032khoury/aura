@@ -13,12 +13,9 @@ export default function Page() {
 			<SignedIn>
 				<View style={styles.centeredCard}>
 					<Text style={styles.body}>Welcome, {user?.firstName || "User"}!</Text>
-					<Pressable
-						style={({ pressed }) => [styles.signOutButton, { opacity: pressed ? 0.6 : 1 }]}
-						onPress={() => console.log("Sign Out")}
-					>
+					<View style={styles.signOutButton}>
 						<SignOutButton />
-					</Pressable>
+					</View>
 				</View>
 			</SignedIn>
 		</View>
