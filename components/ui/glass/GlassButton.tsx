@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
 import { hapticButtonPress } from "@/lib/haptics";
 import { glassFallbackStyles } from "@/lib/styles/glass";
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 interface GlassButtonProps {
 	onPress: () => void;

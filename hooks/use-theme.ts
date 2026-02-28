@@ -1,0 +1,12 @@
+import { use } from "react";
+
+import { ThemeContext } from "@/lib/theme";
+import type { AppTheme } from "@/lib/theme";
+
+export function useTheme(): AppTheme {
+	const ctx = use(ThemeContext);
+	if (!ctx) {
+		throw new Error("useTheme must be used within <ThemeProvider>");
+	}
+	return ctx;
+}

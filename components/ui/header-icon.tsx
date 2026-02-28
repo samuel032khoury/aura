@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
 
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 interface HeaderIconProps {
 	/** Icon name from Ionicons */

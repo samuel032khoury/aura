@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
 import { hapticSelection } from "@/lib/haptics";
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 interface GlassChipProps {
 	emoji: string;

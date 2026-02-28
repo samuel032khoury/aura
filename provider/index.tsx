@@ -1,5 +1,5 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ThemeProvider } from "@/lib/theme";
+import { ThemeProvider } from "./ThemeProvider";
 import { ClerkProvider } from "./ClerkProvider";
 import { ConvexProvider } from "./ConvexProvider";
 

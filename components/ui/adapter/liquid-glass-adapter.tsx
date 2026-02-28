@@ -10,7 +10,7 @@ import {
 	type ViewProps,
 	type ViewStyle,
 } from "react-native";
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 /**
  * Glass effect support detection using expo-glass-effect API

@@ -24,7 +24,8 @@ import { GlassIconButton } from "@/components/ui/glass";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
-import { Gradients, useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { Gradients } from "@/lib/theme";
 
 export default function ForgotPasswordPage() {
 	const { signIn, setActive, isLoaded } = useSignIn();
