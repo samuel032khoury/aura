@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
+import { useTheme } from "@/hooks/use-theme";
 import { hapticButtonPress } from "@/lib/haptics";
 import { glassFallbackStyles } from "@/lib/styles/glass";
-import { useTheme } from "@/hooks/use-theme";
 
 interface GlassButtonProps {
 	onPress: () => void;
@@ -27,8 +27,11 @@ export function GlassButton({
 		}
 	};
 
+	const labelColor =
+		variant === "primary" ? colors.onPrimary : colors.onSurface;
+
 	const labelElement = (
-		<Text style={{ fontSize: 17, fontWeight: "600", color: "#FFFFFF" }}>
+		<Text style={{ fontSize: 17, fontWeight: "600", color: labelColor }}>
 			{label}
 		</Text>
 	);
