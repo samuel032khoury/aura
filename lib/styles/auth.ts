@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
 	signUpContainer: {
 		flexDirection: "row",
 		justifyContent: "center",
+		alignItems: "baseline",
+		gap: 4,
 		paddingBottom: 8,
 	},
 	signUpText: {
@@ -83,7 +85,6 @@ const styles = StyleSheet.create({
 	termsText: {
 		fontSize: 12,
 		color: "#6B6B6B",
-		paddingHorizontal: 4,
 	},
 	termsLink: {
 		fontSize: 12,

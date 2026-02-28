@@ -119,7 +119,7 @@ export default function Page() {
 							autoComplete="password-new"
 						/>
 						{/* Terms of service */}
-						<View style={{ flexDirection: "row" }}>
+					<View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "baseline", columnGap: 4 }}>
 							<Text style={[styles.termsText, { color: colors.textTertiary }]}>
 								By signing up, you agree to our
 							</Text>
@@ -144,9 +144,9 @@ export default function Page() {
 							>
 								<Text style={[styles.termsLink, { color: colors.accentLink }]}>
 									Privacy Policy
+									<Text style={{ textDecorationLine: "none", color: colors.textTertiary }}>.</Text>
 								</Text>
 							</TouchableOpacity>
-							<Text style={{ fontSize: 12, color: colors.textTertiary }}>.</Text>
 						</View>
 
 						{error ? (
@@ -186,7 +186,7 @@ export default function Page() {
 
 						<View style={styles.signUpContainer}>
 							<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
-								Already have an account?{" "}
+								Already have an account?
 							</Text>
 							<TouchableOpacity
 								onPress={() => {

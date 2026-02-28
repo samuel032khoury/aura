@@ -196,7 +196,7 @@ export default function Page() {
 
 						<View style={styles.signUpContainer}>
 							<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
-								Don&apos;t have an account?{" "}
+								Don&apos;t have an account?
 							</Text>
 							<TouchableOpacity
 								onPress={() => {
