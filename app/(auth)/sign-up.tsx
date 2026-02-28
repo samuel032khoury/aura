@@ -5,8 +5,8 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import {
 	Keyboard,
+	Pressable,
 	Text,
-	TouchableOpacity,
 	TouchableWithoutFeedback,
 	View,
 } from "react-native";
@@ -123,7 +123,8 @@ export default function Page() {
 							<Text style={[styles.termsText, { color: colors.textTertiary }]}>
 								By signing up, you agree to our
 							</Text>
-							<TouchableOpacity
+							<Pressable
+								style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
 								onPress={() => {
 									hapticNavigation();
 									router.push("/(auth)/legal-modal?type=tos");
@@ -132,11 +133,12 @@ export default function Page() {
 								<Text style={[styles.termsLink, { color: colors.accentLink }]}>
 									Terms of Service
 								</Text>
-							</TouchableOpacity>
+							</Pressable>
 							<Text style={[styles.termsText, { color: colors.textTertiary }]}>
 								and
 							</Text>
-							<TouchableOpacity
+							<Pressable
+								style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
 								onPress={() => {
 									hapticNavigation();
 									router.push("/(auth)/legal-modal?type=privacy");
@@ -146,7 +148,7 @@ export default function Page() {
 									Privacy Policy
 									<Text style={{ textDecorationLine: "none", color: colors.textTertiary }}>.</Text>
 								</Text>
-							</TouchableOpacity>
+							</Pressable>
 						</View>
 
 						{error ? (
@@ -188,7 +190,8 @@ export default function Page() {
 							<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
 								Already have an account?
 							</Text>
-							<TouchableOpacity
+							<Pressable
+								style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
 								onPress={() => {
 									hapticNavigation();
 									if (router.canGoBack()) {
@@ -201,7 +204,7 @@ export default function Page() {
 								<Text style={[styles.signUpLink, { color: colors.accentLink }]}>
 									Sign In
 								</Text>
-							</TouchableOpacity>
+							</Pressable>
 						</View>
 					</Animated.View>
 				</View>

@@ -1,5 +1,5 @@
 import { useClerk } from "@clerk/clerk-expo";
-import { Text, TouchableOpacity } from "react-native";
+import { Pressable, Text } from "react-native";
 
 export const SignOutButton = () => {
 	const { signOut } = useClerk();
@@ -14,8 +14,11 @@ export const SignOutButton = () => {
 	};
 
 	return (
-		<TouchableOpacity onPress={handleSignOut}>
+		<Pressable
+			style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+			onPress={handleSignOut}
+		>
 			<Text>Sign out</Text>
-		</TouchableOpacity>
+		</Pressable>
 	);
 };

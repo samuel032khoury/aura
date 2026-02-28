@@ -1,7 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 
 import { AnimatedInput } from "@/components/animated-input";
@@ -187,7 +187,8 @@ export function CodeVerification({
 								<Text style={[styles.signUpText, { color: colors.textSecondary }]}>
 									{resent ? "Code sent! " : "Didn't receive a code? "}
 								</Text>
-								<TouchableOpacity
+								<Pressable
+									style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
 									onPress={handleResendWithCooldown}
 									disabled={!canResend}
 								>
@@ -201,7 +202,7 @@ export function CodeVerification({
 									>
 										{resending ? "Sending…" : "Get a new code"}
 									</Text>
-								</TouchableOpacity>
+								</Pressable>
 							</>
 						)}
 					</View>
