@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput, type TextInputProps } from "react-native";
 
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 type GlassTextAreaProps = Omit<TextInputProps, "style">;
 

@@ -7,7 +7,7 @@ import { CodeVerification } from "@/components/auth/code-verification";
 import { GlassIconButton } from "@/components/ui/glass";
 import { useVerifyCode } from "@/hooks/use-verify-code";
 import styles from "@/lib/styles/auth";
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 export default function VerifyCodePage() {
 	const { type, email } = useLocalSearchParams<{

@@ -2,7 +2,7 @@ import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { hapticButtonPress } from "@/lib/haptics";
 import { type LegalDocumentType, legalDocuments } from "@/lib/legal";
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 export default function LegalModal() {
 	const { type } = useLocalSearchParams<{ type: LegalDocumentType }>();

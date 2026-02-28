@@ -1,7 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import { FloatingHeart } from "@/components/floating-heart";
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 interface AuthBackgroundProps {
 	showHearts?: boolean;
