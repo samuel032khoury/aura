@@ -1,5 +1,5 @@
 import { SignedIn, useUser } from "@clerk/clerk-expo";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SignOutButton } from "@/components/sign-out-button";
 import { AppColors } from "@/lib/theme";
 
@@ -13,12 +13,12 @@ export default function Page() {
 			<SignedIn>
 				<View style={styles.centeredCard}>
 					<Text style={styles.body}>Welcome, {user?.firstName || "User"}!</Text>
-					<TouchableOpacity
-						style={styles.signOutButton}
+					<Pressable
+						style={({ pressed }) => [styles.signOutButton, { opacity: pressed ? 0.6 : 1 }]}
 						onPress={() => console.log("Sign Out")}
 					>
 						<SignOutButton />
-					</TouchableOpacity>
+					</Pressable>
 				</View>
 			</SignedIn>
 		</View>

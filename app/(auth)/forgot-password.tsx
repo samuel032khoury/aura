@@ -6,8 +6,8 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import {
 	Keyboard,
+	Pressable,
 	Text,
-	TouchableOpacity,
 	TouchableWithoutFeedback,
 	View,
 } from "react-native";
@@ -305,7 +305,8 @@ export default function ForgotPasswordPage() {
 									<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
 										Remember your password?
 									</Text>
-									<TouchableOpacity
+									<Pressable
+										style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
 										onPress={() => {
 											hapticNavigation();
 											router.back();
@@ -314,7 +315,7 @@ export default function ForgotPasswordPage() {
 										<Text style={[styles.signUpLink, { color: colors.accentLink }]}>
 											Sign In
 										</Text>
-									</TouchableOpacity>
+									</Pressable>
 								</View>
 							</Animated.View>
 						</>
