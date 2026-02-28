@@ -1,5 +1,10 @@
 import { useMaterial3Theme } from "@pchmn/expo-material3-theme";
-import { createContext, useContext, useMemo } from "react";
+import {
+	DarkTheme,
+	DefaultTheme,
+	ThemeProvider as NavigationThemeProvider,
+} from "@react-navigation/native";
+import { createContext, use, useMemo } from "react";
 import { useColorScheme } from "react-native";
 
 // ─── Static constants ────────────────────────────────────────────────────────
@@ -114,7 +119,7 @@ export interface AppTheme {
 
 const ThemeContext = createContext<AppTheme | null>(null);
 
-export function AppThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const colorScheme = useColorScheme();
 	const { theme } = useMaterial3Theme({ sourceColor: SEED_COLOR });
 
@@ -154,15 +159,30 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
 		};
 	}, [isDark, theme]);
 
-	return <ThemeContext value={value}>{children}</ThemeContext>;
+	const navigationTheme = useMemo(
+		() => ({
+			...(isDark ? DarkTheme : DefaultTheme),
+			colors: {
+				...(isDark ? DarkTheme.colors : DefaultTheme.colors),
+				background: value.colors.background,
+			},
+		}),
+		[isDark, value.colors.background],
+	);
+
+	return (
+		<ThemeContext value={value}>
+			<NavigationThemeProvider value={navigationTheme}>{children}</NavigationThemeProvider>
+		</ThemeContext>
+	);
 }
 
 // ─── Hook ────────────────────────────────────────────────────────────────────
 
 export function useTheme(): AppTheme {
-	const ctx = useContext(ThemeContext);
+	const ctx = use(ThemeContext);
 	if (!ctx) {
-		throw new Error("useTheme must be used within <AppThemeProvider>");
+		throw new Error("useTheme must be used within <ThemeProvider>");
 	}
 	return ctx;
 }
