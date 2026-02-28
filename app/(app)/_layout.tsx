@@ -7,7 +7,7 @@ export default function Layout() {
 				headerShown: false,
 			}}
 		>
-			<Stack.Screen name="tabs" />
+			<Stack.Screen name="(tabs)" />
 		</Stack>
 	);
 }
