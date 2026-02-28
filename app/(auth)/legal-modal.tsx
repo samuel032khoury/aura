@@ -2,12 +2,12 @@ import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { hapticButtonPress } from "@/lib/haptics";
 import { type LegalDocumentType, legalDocuments } from "@/lib/legal";
-import { useAuthTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 export default function LegalModal() {
 	const { type } = useLocalSearchParams<{ type: LegalDocumentType }>();
 	const router = useRouter();
-	const t = useAuthTheme();
+	const { colors } = useTheme();
 
 	const doc = legalDocuments[type ?? "tos"];
 
@@ -22,36 +22,36 @@ export default function LegalModal() {
 		<>
 			{/* ScrollView must be the first child per Expo Router conventions */}
 			<ScrollView
-				style={[styles.container, { backgroundColor: t.surface }]}
+				style={[styles.container, { backgroundColor: colors.surface }]}
 				contentContainerStyle={styles.scrollContent}
 				contentInsetAdjustmentBehavior="automatic"
 				showsVerticalScrollIndicator={false}
 			>
 				{/* Title */}
-				<Text style={[styles.title, { color: t.textPrimary }]}>
+				<Text style={[styles.title, { color: colors.textPrimary }]}>
 					{doc.title}
 				</Text>
 
 				{/* Last Updated */}
-				<Text style={[styles.lastUpdated, { color: t.textTertiary }]}>
+				<Text style={[styles.lastUpdated, { color: colors.textTertiary }]}>
 					Last updated {doc.lastUpdated}
 				</Text>
 
 				{/* Divider */}
-				<View style={[styles.divider, { backgroundColor: t.textTertiary }]} />
+				<View style={[styles.divider, { backgroundColor: colors.textTertiary }]} />
 
 				{/* Sections */}
 				{doc.sections.map((section) => (
 					<View key={section.heading} style={styles.section}>
 						<Text
 							selectable
-							style={[styles.sectionHeading, { color: t.textPrimary }]}
+							style={[styles.sectionHeading, { color: colors.textPrimary }]}
 						>
 							{section.heading}
 						</Text>
 						<Text
 							selectable
-							style={[styles.sectionBody, { color: t.textSecondary }]}
+							style={[styles.sectionBody, { color: colors.textSecondary }]}
 						>
 							{section.body}
 						</Text>

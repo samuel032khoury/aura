@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
 import { hapticButtonPress } from "@/lib/haptics";
 import { glassFallbackStyles } from "@/lib/styles/glass";
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 interface GlassButtonProps {
 	onPress: () => void;
@@ -18,7 +18,7 @@ export function GlassButton({
 	disabled = false,
 	variant = "primary",
 }: GlassButtonProps) {
-	const { colors } = useAppTheme();
+	const { colors } = useTheme();
 
 	const handlePress = () => {
 		if (!disabled) {

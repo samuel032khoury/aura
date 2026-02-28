@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
 
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 interface HeaderIconProps {
 	/** Icon name from Ionicons */
@@ -29,7 +29,7 @@ export function HeaderIcon({
 	backgroundColor,
 	size = "small",
 }: HeaderIconProps) {
-	const { colors } = useAppTheme();
+	const { colors } = useTheme();
 
 	const containerSize = size === "large" ? 80 : 56;
 	const iconSize = size === "large" ? 40 : 28;

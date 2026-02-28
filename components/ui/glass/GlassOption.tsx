@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
 import { hapticSelection } from "@/lib/haptics";
 import { glassFallbackStyles } from "@/lib/styles/glass";
-import { AppColors, useAppTheme } from "@/lib/theme";
+import { AppColors, useTheme } from "@/lib/theme";
 
 interface GlassOptionProps {
 	icon: string;
@@ -19,7 +19,7 @@ export function GlassOption({
 	onPress,
 	selected = false,
 }: GlassOptionProps) {
-	const { colors } = useAppTheme();
+	const { colors } = useTheme();
 
 	const handlePress = () => {
 		hapticSelection();

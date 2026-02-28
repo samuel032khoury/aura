@@ -1,12 +1,12 @@
 import { StyleSheet, TextInput, type TextInputProps } from "react-native";
 
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 type GlassTextAreaProps = Omit<TextInputProps, "style">;
 
 export function GlassTextArea(props: GlassTextAreaProps) {
-	const { colors } = useAppTheme();
+	const { colors } = useTheme();
 
 	return (
 		<LiquidGlassAdapter style={styles.container} isInteractive>

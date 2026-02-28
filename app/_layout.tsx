@@ -8,12 +8,12 @@ import {
 	DefaultTheme,
 	ThemeProvider,
 } from "@react-navigation/native";
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 import AppProviders from "@/provider";
 
 function RootLayoutNav() {
 	const { isSignedIn } = useAuth();
-	const { isDark, colors } = useAppTheme();
+	const { isDark, colors } = useTheme();
 
 	const navTheme = {
 		...(isDark ? DarkTheme : DefaultTheme),
