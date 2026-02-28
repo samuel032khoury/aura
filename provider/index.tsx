@@ -1,4 +1,5 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { AppThemeProvider } from "@/lib/theme";
 import { ClerkProvider } from "./ClerkProvider";
 import { ConvexProvider } from "./ConvexProvider";
 
@@ -9,9 +10,11 @@ export default function AppProviders({
 }) {
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
-			<ClerkProvider>
-				<ConvexProvider>{children}</ConvexProvider>
-			</ClerkProvider>
+			<AppThemeProvider>
+				<ClerkProvider>
+					<ConvexProvider>{children}</ConvexProvider>
+				</ClerkProvider>
+			</AppThemeProvider>
 		</GestureHandlerRootView>
 	);
 }

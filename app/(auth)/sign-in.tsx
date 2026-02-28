@@ -19,13 +19,13 @@ import { GradientButton } from "@/components/gradient-button";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
-import { Gradients, useAuthTheme } from "@/lib/theme";
+import { Gradients, useTheme } from "@/lib/theme";
 
 export default function Page() {
 	const { signIn, setActive, isLoaded } = useSignIn();
 	const router = useRouter();
 	const insets = useSafeAreaInsets();
-	const t = useAuthTheme();
+	const { colors } = useTheme();
 
 	const [emailAddress, setEmailAddress] = useState("");
 	const [password, setPassword] = useState("");
@@ -88,7 +88,7 @@ export default function Page() {
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View style={[styles.container, { backgroundColor: t.surface }]}>
+			<View style={[styles.container, { backgroundColor: colors.surface }]}>
 				<AuthBackground />
 
 				<View
@@ -112,10 +112,10 @@ export default function Page() {
 								<SymbolView name="heart.fill" size={42} tintColor="#FFFFFF" />
 							</LinearGradient>
 						</View>
-						<Text style={[styles.logoText, { color: t.textPrimary }]}>
+						<Text style={[styles.logoText, { color: colors.textPrimary }]}>
 							Aura
 						</Text>
-						<Text style={[styles.logoTagline, { color: t.textSecondary }]}>
+						<Text style={[styles.logoTagline, { color: colors.textSecondary }]}>
 							Find your perfect match
 						</Text>
 					</Animated.View>
@@ -127,7 +127,7 @@ export default function Page() {
 					>
 						<AnimatedInput
 							icon="envelope.fill"
-							theme={t}
+							colors={colors}
 							placeholder="Email address"
 							value={emailAddress}
 							onChangeText={setEmailAddress}
@@ -137,7 +137,7 @@ export default function Page() {
 						/>
 						<AnimatedInput
 							icon="lock.fill"
-							theme={t}
+							colors={colors}
 							placeholder="Password"
 							value={password}
 							onChangeText={setPassword}
@@ -153,7 +153,7 @@ export default function Page() {
 							}}
 						>
 							<Text
-								style={[styles.forgotPasswordText, { color: t.accentLink }]}
+								style={[styles.forgotPasswordText, { color: colors.accentLink }]}
 							>
 								Forgot password?
 							</Text>
@@ -162,16 +162,16 @@ export default function Page() {
 						{error ? (
 							<Animated.View
 								entering={FadeInDown.duration(300)}
-								style={[styles.errorContainer, { backgroundColor: t.errorBg }]}
+								style={[styles.errorContainer, { backgroundColor: colors.errorBg }]}
 							>
 								<SymbolView
 									name="exclamationmark.triangle.fill"
 									size={16}
-									tintColor={t.errorText}
+									tintColor={colors.errorText}
 								/>
 								<Text
 									selectable
-									style={[styles.errorText, { color: t.errorText }]}
+									style={[styles.errorText, { color: colors.errorText }]}
 								>
 									{error}
 								</Text>
@@ -195,7 +195,7 @@ export default function Page() {
 						</GradientButton>
 
 						<View style={styles.signUpContainer}>
-							<Text style={[styles.signUpText, { color: t.textTertiary }]}>
+							<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
 								Don&apos;t have an account?{" "}
 							</Text>
 							<TouchableOpacity
@@ -204,7 +204,7 @@ export default function Page() {
 									router.push("/(auth)/sign-up");
 								}}
 							>
-								<Text style={[styles.signUpLink, { color: t.accentLink }]}>
+								<Text style={[styles.signUpLink, { color: colors.accentLink }]}>
 									Sign Up
 								</Text>
 							</TouchableOpacity>

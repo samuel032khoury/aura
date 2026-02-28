@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
 import { hapticSelection } from "@/lib/haptics";
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 interface GlassChipProps {
 	emoji: string;
@@ -11,7 +11,7 @@ interface GlassChipProps {
 }
 
 export function GlassChip({ emoji, label, selected, onPress }: GlassChipProps) {
-	const { colors } = useAppTheme();
+	const { colors } = useTheme();
 
 	const handlePress = () => {
 		hapticSelection();

@@ -1,7 +1,7 @@
 import { TextInput, type TextInputProps } from "react-native";
 
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 type GlassInputProps = Omit<TextInputProps, "style">;
 
@@ -14,7 +14,7 @@ const containerStyle = {
 };
 
 export function GlassInput(props: GlassInputProps) {
-	const { isDark } = useAppTheme();
+	const { isDark } = useTheme();
 
 	const textColor = isDark ? "#FFFFFF" : "#1A1A1A";
 	const placeholderColor = isDark ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.4)";

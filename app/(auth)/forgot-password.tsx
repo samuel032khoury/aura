@@ -24,13 +24,13 @@ import { GlassIconButton } from "@/components/ui/glass";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
-import { Gradients, useAuthTheme } from "@/lib/theme";
+import { Gradients, useTheme } from "@/lib/theme";
 
 export default function ForgotPasswordPage() {
 	const { signIn, setActive, isLoaded } = useSignIn();
 	const router = useRouter();
 	const insets = useSafeAreaInsets();
-	const t = useAuthTheme();
+	const { colors } = useTheme();
 
 	const [emailAddress, setEmailAddress] = useState("");
 	const [password, setPassword] = useState("");
@@ -102,7 +102,7 @@ export default function ForgotPasswordPage() {
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View style={[styles.container, { backgroundColor: t.surface }]}>
+			<View style={[styles.container, { backgroundColor: colors.surface }]}>
 				<AuthBackground showHearts={!successfulCreation} />
 
 				<View
@@ -115,7 +115,7 @@ export default function ForgotPasswordPage() {
 				>
 					<GlassIconButton
 						icon={
-							<Ionicons name="chevron-back" size={22} color={t.textPrimary} />
+							<Ionicons name="chevron-back" size={22} color={colors.textPrimary} />
 						}
 						onPress={() => router.back()}
 					/>
@@ -148,10 +148,10 @@ export default function ForgotPasswordPage() {
 										/>
 									</LinearGradient>
 								</View>
-								<Text style={[styles.logoText, { color: t.textPrimary }]}>
+								<Text style={[styles.logoText, { color: colors.textPrimary }]}>
 									Reset Password
 								</Text>
-								<Text style={[styles.logoTagline, { color: t.textSecondary }]}>
+								<Text style={[styles.logoTagline, { color: colors.textSecondary }]}>
 									Enter the code sent to your email and your new password
 								</Text>
 							</Animated.View>
@@ -163,7 +163,7 @@ export default function ForgotPasswordPage() {
 							>
 								<AnimatedInput
 									icon="number"
-									theme={t}
+									colors={colors}
 									placeholder="Verification code"
 									value={code}
 									onChangeText={setCode}
@@ -171,7 +171,7 @@ export default function ForgotPasswordPage() {
 								/>
 								<AnimatedInput
 									icon="lock.fill"
-									theme={t}
+									colors={colors}
 									placeholder="New password"
 									value={password}
 									onChangeText={setPassword}
@@ -184,17 +184,17 @@ export default function ForgotPasswordPage() {
 										entering={FadeInDown.duration(300)}
 										style={[
 											styles.errorContainer,
-											{ backgroundColor: t.errorBg },
+											{ backgroundColor: colors.errorBg },
 										]}
 									>
 										<SymbolView
 											name="exclamationmark.triangle.fill"
 											size={16}
-											tintColor={t.errorText}
+											tintColor={colors.errorText}
 										/>
 										<Text
 											selectable
-											style={[styles.errorText, { color: t.errorText }]}
+											style={[styles.errorText, { color: colors.errorText }]}
 										>
 											{error}
 										</Text>
@@ -239,10 +239,10 @@ export default function ForgotPasswordPage() {
 										/>
 									</LinearGradient>
 								</View>
-								<Text style={[styles.logoText, { color: t.textPrimary }]}>
+								<Text style={[styles.logoText, { color: colors.textPrimary }]}>
 									Forgot Password
 								</Text>
-								<Text style={[styles.logoTagline, { color: t.textSecondary }]}>
+								<Text style={[styles.logoTagline, { color: colors.textSecondary }]}>
 									Enter your email to receive a reset code
 								</Text>
 							</Animated.View>
@@ -254,7 +254,7 @@ export default function ForgotPasswordPage() {
 							>
 								<AnimatedInput
 									icon="envelope.fill"
-									theme={t}
+									colors={colors}
 									placeholder="Email address"
 									value={emailAddress}
 									onChangeText={setEmailAddress}
@@ -268,17 +268,17 @@ export default function ForgotPasswordPage() {
 										entering={FadeInDown.duration(300)}
 										style={[
 											styles.errorContainer,
-											{ backgroundColor: t.errorBg },
+											{ backgroundColor: colors.errorBg },
 										]}
 									>
 										<SymbolView
 											name="exclamationmark.triangle.fill"
 											size={16}
-											tintColor={t.errorText}
+											tintColor={colors.errorText}
 										/>
 										<Text
 											selectable
-											style={[styles.errorText, { color: t.errorText }]}
+											style={[styles.errorText, { color: colors.errorText }]}
 										>
 											{error}
 										</Text>
@@ -302,7 +302,7 @@ export default function ForgotPasswordPage() {
 								</GradientButton>
 
 								<View style={styles.signUpContainer}>
-									<Text style={[styles.signUpText, { color: t.textTertiary }]}>
+									<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
 										Remember your password?{" "}
 									</Text>
 									<TouchableOpacity
@@ -311,7 +311,7 @@ export default function ForgotPasswordPage() {
 											router.back();
 										}}
 									>
-										<Text style={[styles.signUpLink, { color: t.accentLink }]}>
+										<Text style={[styles.signUpLink, { color: colors.accentLink }]}>
 											Sign In
 										</Text>
 									</TouchableOpacity>

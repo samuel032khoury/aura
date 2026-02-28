@@ -7,7 +7,7 @@ import { CodeVerification } from "@/components/auth/code-verification";
 import { GlassIconButton } from "@/components/ui/glass";
 import { useVerifyCode } from "@/hooks/use-verify-code";
 import styles from "@/lib/styles/auth";
-import { useAuthTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 export default function VerifyCodePage() {
 	const { type, email } = useLocalSearchParams<{
@@ -16,7 +16,7 @@ export default function VerifyCodePage() {
 	}>();
 	const router = useRouter();
 	const insets = useSafeAreaInsets();
-	const t = useAuthTheme();
+	const { colors } = useTheme();
 
 	const {
 		code,
@@ -31,7 +31,7 @@ export default function VerifyCodePage() {
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View style={[styles.container, { backgroundColor: t.surface }]}>
+			<View style={[styles.container, { backgroundColor: colors.surface }]}>
 				<AuthBackground />
 
 				<View
@@ -44,7 +44,7 @@ export default function VerifyCodePage() {
 				>
 					<GlassIconButton
 						icon={
-							<Ionicons name="chevron-back" size={22} color={t.textPrimary} />
+							<Ionicons name="chevron-back" size={22} color={colors.textPrimary} />
 						}
 						onPress={() => router.back()}
 					/>
@@ -57,7 +57,7 @@ export default function VerifyCodePage() {
 					]}
 				>
 					<CodeVerification
-						theme={t}
+						colors={colors}
 						code={code}
 						setCode={setCode}
 						error={error}

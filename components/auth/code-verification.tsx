@@ -7,12 +7,12 @@ import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import { AnimatedInput } from "@/components/animated-input";
 import { GradientButton } from "@/components/gradient-button";
 import styles from "@/lib/styles/auth";
-import { type AuthTheme, Gradients } from "@/lib/theme";
+import { type ThemeColors, Gradients } from "@/lib/theme";
 
 const COOLDOWN_SECONDS = 60;
 
 interface CodeVerificationProps {
-	theme: AuthTheme;
+	colors: ThemeColors;
 	code: string;
 	setCode: (code: string) => void;
 	error: string;
@@ -25,7 +25,7 @@ interface CodeVerificationProps {
 }
 
 export function CodeVerification({
-	theme: t,
+	colors,
 	code,
 	setCode,
 	error,
@@ -96,20 +96,20 @@ export function CodeVerification({
 						<SymbolView name="envelope.fill" size={38} tintColor="#FFFFFF" />
 					</LinearGradient>
 				</View>
-				<Text style={[styles.logoText, { color: t.textPrimary }]}>
+				<Text style={[styles.logoText, { color: colors.textPrimary }]}>
 					Verify your email
 				</Text>
 				<Text
 					style={[
 						styles.logoTagline,
-						{ color: t.textSecondary, textAlign: "center" },
+						{ color: colors.textSecondary, textAlign: "center" },
 					]}
 				>
 					We sent a verification code to{" "}
 					{email ? (
 						<Text
 							selectable
-							style={{ color: t.textPrimary, fontWeight: "700" }}
+							style={{ color: colors.textPrimary, fontWeight: "700" }}
 						>
 							{email}
 						</Text>
@@ -126,7 +126,7 @@ export function CodeVerification({
 			>
 				<AnimatedInput
 					icon="number"
-					theme={t}
+					colors={colors}
 					placeholder="Enter verification code"
 					value={code}
 					onChangeText={setCode}
@@ -135,14 +135,14 @@ export function CodeVerification({
 				{error ? (
 					<Animated.View
 						entering={FadeInDown.duration(300)}
-						style={[styles.errorContainer, { backgroundColor: t.errorBg }]}
+						style={[styles.errorContainer, { backgroundColor: colors.errorBg }]}
 					>
 						<SymbolView
 							name="exclamationmark.triangle.fill"
 							size={16}
-							tintColor={t.errorText}
+							tintColor={colors.errorText}
 						/>
-						<Text selectable style={[styles.errorText, { color: t.errorText }]}>
+						<Text selectable style={[styles.errorText, { color: colors.errorText }]}>
 							{error}
 						</Text>
 					</Animated.View>
@@ -166,16 +166,16 @@ export function CodeVerification({
 				{onResend ? (
 					<View style={styles.signUpContainer}>
 						{resending ? (
-							<Text style={[styles.signUpText, { color: t.textSecondary }]}>
+							<Text style={[styles.signUpText, { color: colors.textSecondary }]}>
 								Sending a new code…
 							</Text>
 						) : cooldown > 0 ? (
-							<Text style={[styles.signUpText, { color: t.textSecondary }]}>
+							<Text style={[styles.signUpText, { color: colors.textSecondary }]}>
 								Get a new code in{" "}
 								<Text
 									style={{
 										fontWeight: "700",
-										color: t.textSecondary,
+										color: colors.textSecondary,
 										fontVariant: ["tabular-nums"],
 									}}
 								>
@@ -184,7 +184,7 @@ export function CodeVerification({
 							</Text>
 						) : (
 							<>
-								<Text style={[styles.signUpText, { color: t.textSecondary }]}>
+								<Text style={[styles.signUpText, { color: colors.textSecondary }]}>
 									{resent ? "Code sent! " : "Didn't receive a code? "}
 								</Text>
 								<TouchableOpacity
@@ -195,7 +195,7 @@ export function CodeVerification({
 										style={[
 											styles.signUpLink,
 											{
-												color: canResend ? t.accentLink : t.textSecondary,
+												color: canResend ? colors.accentLink : colors.textSecondary,
 											},
 										]}
 									>

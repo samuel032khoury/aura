@@ -10,7 +10,7 @@ import {
 	type ViewProps,
 	type ViewStyle,
 } from "react-native";
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 /**
  * Glass effect support detection using expo-glass-effect API
@@ -51,7 +51,7 @@ export function LiquidGlassAdapter({
 	useSolidFallback = false,
 	...props
 }: LiquidGlassAdapterProps) {
-	const { colors, isDark } = useAppTheme();
+	const { colors, isDark } = useTheme();
 
 	// iOS 26+ - use native liquid glass
 	if (supportsGlassEffect) {

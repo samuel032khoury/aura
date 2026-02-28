@@ -14,11 +14,11 @@ import Animated, {
 	withTiming,
 } from "react-native-reanimated";
 import { hapticToggleOption } from "@/lib/haptics";
-import { AppColors, type AuthTheme } from "@/lib/theme";
+import { AppColors, type ThemeColors } from "@/lib/theme";
 
 type AnimatedInputProps = {
 	icon: ComponentProps<typeof SymbolView>["name"];
-	theme: AuthTheme;
+	colors: ThemeColors;
 	secureTextEntry?: boolean;
 } & Pick<
 	TextInputProps,
@@ -32,7 +32,7 @@ type AnimatedInputProps = {
 
 export function AnimatedInput({
 	icon,
-	theme,
+	colors,
 	secureTextEntry = false,
 	...textInputProps
 }: AnimatedInputProps) {
@@ -50,7 +50,7 @@ export function AnimatedInput({
 		backgroundColor: interpolateColor(
 			focusAnim.value,
 			[0, 1],
-			[theme.inputBg, theme.inputBgFocused],
+			[colors.inputBg, colors.inputBgFocused],
 		),
 	}));
 
@@ -71,7 +71,7 @@ export function AnimatedInput({
 					<SymbolView
 						name={icon}
 						size={20}
-						tintColor={focused ? AppColors.primary : theme.iconDefault}
+						tintColor={focused ? AppColors.primary : colors.iconDefault}
 					/>
 				</View>
 				<TextInput
@@ -79,8 +79,8 @@ export function AnimatedInput({
 					onFocus={handleFocus}
 					onBlur={handleBlur}
 					secureTextEntry={secureTextEntry && !secretVisible}
-					style={[styles.input, { color: theme.textPrimary }]}
-					placeholderTextColor={theme.placeholder}
+					style={[styles.input, { color: colors.textPrimary }]}
+					placeholderTextColor={colors.placeholder}
 					{...textInputProps}
 				/>
 				{secureTextEntry && (
@@ -94,7 +94,7 @@ export function AnimatedInput({
 						<SymbolView
 							name={secretVisible ? "eye.slash.fill" : "eye.fill"}
 							size={20}
-							tintColor={theme.iconDefault}
+							tintColor={colors.iconDefault}
 						/>
 					</Pressable>
 				)}

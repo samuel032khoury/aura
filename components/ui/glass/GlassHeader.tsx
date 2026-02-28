@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, type ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { LiquidGlassAdapter } from "@/components/ui/adapter/liquid-glass-adapter";
-import { useAppTheme } from "@/lib/theme";
+import { useTheme } from "@/lib/theme";
 
 interface GlassHeaderProps {
 	/** Main title text */
@@ -61,7 +61,7 @@ export function GlassHeader({
 	style,
 	centerTitle = false,
 }: GlassHeaderProps) {
-	const { colors } = useAppTheme();
+	const { colors } = useTheme();
 	const insets = useSafeAreaInsets();
 
 	const renderContent = () => {
