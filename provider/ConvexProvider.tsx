@@ -12,7 +12,7 @@ const convex = new ConvexReactClient(convexUrl);
 export function ConvexProvider({ children }: { children: React.ReactNode }) {
 	return (
 		<ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-			{children} 
+			{children}
 		</ConvexProviderWithClerk>
 	);
 }

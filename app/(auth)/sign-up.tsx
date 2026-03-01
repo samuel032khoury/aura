@@ -15,10 +15,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AnimatedInput } from "@/components/animated-input";
 import { AuthBackground } from "@/components/auth/auth-background";
 import { GradientButton } from "@/components/gradient-button";
+import { useTheme } from "@/hooks/use-theme";
 import { getClerkErrorMessage } from "@/lib/clerk-error";
 import { hapticButtonPress, hapticNavigation } from "@/lib/haptics";
 import styles from "@/lib/styles/auth";
-import { useTheme } from "@/hooks/use-theme";
 import { Gradients } from "@/lib/theme";
 
 export default function Page() {
@@ -120,7 +120,15 @@ export default function Page() {
 							autoComplete="password-new"
 						/>
 						{/* Terms of service */}
-					<View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "baseline", columnGap: 4 }}>
+						<View
+							style={{
+								flexDirection: "row",
+								flexWrap: "wrap",
+								justifyContent: "center",
+								alignItems: "baseline",
+								columnGap: 4,
+							}}
+						>
 							<Text style={[styles.termsText, { color: colors.textTertiary }]}>
 								By signing up, you agree to our
 							</Text>
@@ -138,24 +146,35 @@ export default function Page() {
 							<Text style={[styles.termsText, { color: colors.textTertiary }]}>
 								and
 							</Text>
-							<Pressable
-								style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
-								onPress={() => {
-									hapticNavigation();
-									router.push("/(auth)/legal-modal?type=privacy");
-								}}
-							>
-								<Text style={[styles.termsLink, { color: colors.accentLink }]}>
-									Privacy Policy
-									<Text style={{ textDecorationLine: "none", color: colors.textTertiary }}>.</Text>
+							<View style={{ flexDirection: "row", alignItems: "baseline" }}>
+								<Pressable
+									style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+									onPress={() => {
+										hapticNavigation();
+										router.push("/(auth)/legal-modal?type=privacy");
+									}}
+								>
+									<Text
+										style={[styles.termsLink, { color: colors.accentLink }]}
+									>
+										Privacy Policy
+									</Text>
+								</Pressable>
+								<Text
+									style={[styles.termsText, { color: colors.textTertiary }]}
+								>
+									.
 								</Text>
-							</Pressable>
+							</View>
 						</View>
 
 						{error ? (
 							<Animated.View
 								entering={FadeInDown.duration(300)}
-								style={[styles.errorContainer, { backgroundColor: colors.errorBg }]}
+								style={[
+									styles.errorContainer,
+									{ backgroundColor: colors.errorBg },
+								]}
 							>
 								<SymbolView
 									name="exclamationmark.triangle.fill"

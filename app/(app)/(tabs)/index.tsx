@@ -1,5 +1,5 @@
 import { SignedIn, useUser } from "@clerk/clerk-expo";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SignOutButton } from "@/components/sign-out-button";
 import { AppColors } from "@/lib/theme";
 

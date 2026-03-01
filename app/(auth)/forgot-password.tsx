@@ -116,7 +116,11 @@ export default function ForgotPasswordPage() {
 				>
 					<GlassIconButton
 						icon={
-							<Ionicons name="chevron-back" size={22} color={colors.textPrimary} />
+							<Ionicons
+								name="chevron-back"
+								size={22}
+								color={colors.textPrimary}
+							/>
 						}
 						onPress={() => router.back()}
 					/>
@@ -152,7 +156,9 @@ export default function ForgotPasswordPage() {
 								<Text style={[styles.logoText, { color: colors.textPrimary }]}>
 									Reset Password
 								</Text>
-								<Text style={[styles.logoTagline, { color: colors.textSecondary }]}>
+								<Text
+									style={[styles.logoTagline, { color: colors.textSecondary }]}
+								>
 									Enter the code sent to your email and your new password
 								</Text>
 							</Animated.View>
@@ -243,7 +249,9 @@ export default function ForgotPasswordPage() {
 								<Text style={[styles.logoText, { color: colors.textPrimary }]}>
 									Forgot Password
 								</Text>
-								<Text style={[styles.logoTagline, { color: colors.textSecondary }]}>
+								<Text
+									style={[styles.logoTagline, { color: colors.textSecondary }]}
+								>
 									Enter your email to receive a reset code
 								</Text>
 							</Animated.View>
@@ -303,7 +311,9 @@ export default function ForgotPasswordPage() {
 								</GradientButton>
 
 								<View style={styles.signUpContainer}>
-									<Text style={[styles.signUpText, { color: colors.textTertiary }]}>
+									<Text
+										style={[styles.signUpText, { color: colors.textTertiary }]}
+									>
 										Remember your password?
 									</Text>
 									<Pressable
@@ -313,7 +323,9 @@ export default function ForgotPasswordPage() {
 											router.back();
 										}}
 									>
-										<Text style={[styles.signUpLink, { color: colors.accentLink }]}>
+										<Text
+											style={[styles.signUpLink, { color: colors.accentLink }]}
+										>
 											Sign In
 										</Text>
 									</Pressable>

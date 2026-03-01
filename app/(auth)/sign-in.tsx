@@ -147,14 +147,20 @@ export default function Page() {
 						/>
 
 						<Pressable
-							style={({ pressed }) => [styles.forgotPassword, { opacity: pressed ? 0.6 : 1 }]}
+							style={({ pressed }) => [
+								styles.forgotPassword,
+								{ opacity: pressed ? 0.6 : 1 },
+							]}
 							onPress={() => {
 								hapticNavigation();
 								router.push("/(auth)/forgot-password");
 							}}
 						>
 							<Text
-								style={[styles.forgotPasswordText, { color: colors.accentLink }]}
+								style={[
+									styles.forgotPasswordText,
+									{ color: colors.accentLink },
+								]}
 							>
 								Forgot password?
 							</Text>
@@ -163,7 +169,10 @@ export default function Page() {
 						{error ? (
 							<Animated.View
 								entering={FadeInDown.duration(300)}
-								style={[styles.errorContainer, { backgroundColor: colors.errorBg }]}
+								style={[
+									styles.errorContainer,
+									{ backgroundColor: colors.errorBg },
+								]}
 							>
 								<SymbolView
 									name="exclamationmark.triangle.fill"

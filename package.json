@@ -8,7 +8,7 @@
 		"ios": "expo start --ios",
 		"tunnel": "expo start -c --tunnel",
 		"web": "expo start --web",
-		"lint": "biome lint --write",
+		"lint": "biome lint --write --unsafe",
 		"format": "biome format --write"
 	},
 	"dependencies": {

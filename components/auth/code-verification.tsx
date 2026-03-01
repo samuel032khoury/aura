@@ -142,7 +142,10 @@ export function CodeVerification({
 							size={16}
 							tintColor={colors.errorText}
 						/>
-						<Text selectable style={[styles.errorText, { color: colors.errorText }]}>
+						<Text
+							selectable
+							style={[styles.errorText, { color: colors.errorText }]}
+						>
 							{error}
 						</Text>
 					</Animated.View>
@@ -166,11 +169,15 @@ export function CodeVerification({
 				{onResend ? (
 					<View style={styles.signUpContainer}>
 						{resending ? (
-							<Text style={[styles.signUpText, { color: colors.textSecondary }]}>
+							<Text
+								style={[styles.signUpText, { color: colors.textSecondary }]}
+							>
 								Sending a new code…
 							</Text>
 						) : cooldown > 0 ? (
-							<Text style={[styles.signUpText, { color: colors.textSecondary }]}>
+							<Text
+								style={[styles.signUpText, { color: colors.textSecondary }]}
+							>
 								Get a new code in{" "}
 								<Text
 									style={{
@@ -184,7 +191,9 @@ export function CodeVerification({
 							</Text>
 						) : (
 							<>
-								<Text style={[styles.signUpText, { color: colors.textSecondary }]}>
+								<Text
+									style={[styles.signUpText, { color: colors.textSecondary }]}
+								>
 									{resent ? "Code sent! " : "Didn't receive a code? "}
 								</Text>
 								<Pressable
@@ -196,7 +205,9 @@ export function CodeVerification({
 										style={[
 											styles.signUpLink,
 											{
-												color: canResend ? colors.accentLink : colors.textSecondary,
+												color: canResend
+													? colors.accentLink
+													: colors.textSecondary,
 											},
 										]}
 									>
