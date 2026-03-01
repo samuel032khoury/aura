@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native";
 import { useMemo } from "react";
 import { useColorScheme } from "react-native";
-
+import type { AppTheme } from "@/lib/theme";
 import {
 	AppColors,
 	DarkColors,
@@ -14,7 +14,6 @@ import {
 	SEED_COLOR,
 	ThemeContext,
 } from "@/lib/theme";
-import type { AppTheme } from "@/lib/theme";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const colorScheme = useColorScheme();
@@ -68,10 +67,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	);
 
 	return (
-		<ThemeContext value={value}>
+		<ThemeContext.Provider value={value}>
 			<NavigationThemeProvider value={navigationTheme}>
 				{children}
 			</NavigationThemeProvider>
-		</ThemeContext>
+		</ThemeContext.Provider>
 	);
 }

@@ -44,7 +44,11 @@ export default function VerifyCodePage() {
 				>
 					<GlassIconButton
 						icon={
-							<Ionicons name="chevron-back" size={22} color={colors.textPrimary} />
+							<Ionicons
+								name="chevron-back"
+								size={22}
+								color={colors.textPrimary}
+							/>
 						}
 						onPress={() => router.back()}
 					/>

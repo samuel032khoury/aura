@@ -38,7 +38,9 @@ export default function LegalModal() {
 				</Text>
 
 				{/* Divider */}
-				<View style={[styles.divider, { backgroundColor: colors.textTertiary }]} />
+				<View
+					style={[styles.divider, { backgroundColor: colors.textTertiary }]}
+				/>
 
 				{/* Sections */}
 				{doc.sections.map((section) => (

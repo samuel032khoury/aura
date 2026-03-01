@@ -1,3 +1,5 @@
+import { createContext } from "react";
+
 /** App seed color — a warm, romantic pink/coral */
 export const SEED_COLOR = "#FF6B6B";
 
@@ -89,7 +91,5 @@ export interface AppTheme {
 	isDark: boolean;
 	colors: ThemeColors;
 }
-
-import { createContext } from "react";
 
 export const ThemeContext = createContext<AppTheme | null>(null);
